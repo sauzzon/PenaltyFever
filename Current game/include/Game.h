@@ -61,7 +61,7 @@ class Game
          // The game will always be in one of four states
         enum class State
        {
-            HOME_PAGE, PAUSED, GAME_OVER, PLAYING ,ABOUT ,HOWTOPLAY, SUDDEN_DEATH
+            HOME_PAGE, PAUSED, GAME_OVER, PLAYING ,ABOUT ,HOWTOPLAY
        };
 
        State state;
@@ -95,6 +95,7 @@ class Game
 
     bool tooglePlayer=false;
     bool suddenDeath=false;
+    int timeForSuddenDeath=0;
 
 
 

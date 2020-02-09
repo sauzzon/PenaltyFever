@@ -27,6 +27,9 @@ Game::Game()
     AttemptText.setFont(font);
     saveText.setFont(font);
     scoreText.setFont(font);
+    suddenDeathText.setFont(gameOverfont);
+
+
 
     Attempt1Text.setFont(font);
     save1Text.setFont(font);
@@ -43,6 +46,7 @@ Game::Game()
     aboutgame.setString(L"Penalty Fever is a fun\ngame for Penalty Practice in football.\nIt was created by\nSaujann, Sandeep , Sangam\nfor CPP project\n\nENJOY IT !!!!");
     howtoplay.setString(L"Use arrow keys to position target\nUse spacebar to shoot\nUse Q,W,E,A,S,D,F,Z,X,C to dive");
     title.setString(L"PENALTY  FEVER");
+    suddenDeathText.setString("You Entered the Sudden Death Mode");
 
 
 
@@ -66,6 +70,7 @@ Game::Game()
     aboutgame.setPosition(530,250);
     howtoplay.setPosition(530,250);
     title.setPosition(250,0);
+    suddenDeathText.setPosition(window.getSize().x/8, window.getSize().y/2);
 
     scoreText.setStyle(sf::Text::Bold);
     AttemptText.setStyle(sf::Text::Bold);
@@ -82,6 +87,7 @@ Game::Game()
     scoreText.setCharacterSize(25);
     AttemptText.setCharacterSize(25);
     saveText.setCharacterSize(25);
+     suddenDeathText.setCharacterSize(80);
 
 
     score1Text.setCharacterSize(25);
@@ -313,37 +319,35 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
         if(state == State::PLAYING)
         {
 
-            if(shots1 == 2)
+          if(suddenDeath)
             {
-                if(score == score1 )
+                if(shots==shots1)
                 {
-                    state = State::SUDDEN_DEATH;
-                    resetScore();
-                }
-                else
-                    state = State::GAME_OVER;
-            }
-
-            if(suddenDeath)
-            {
-                if((shots==shots1)&&(score!=score1))
-                {
-                    suddenDeath=false;
-                    state=State::GAME_OVER;
+                    if(score1!=score)
+                    {
+                        suddenDeath=false;
+                        state=State::GAME_OVER;
+                    }
 
                 }
+
             }
 
-            if(shots1 == 5)
+            if((shots1==5)&&(shots==5))
             {
-                if(score!=score1)
-                state = State::GAME_OVER;
+                if(score1!=score)
+                state=State::GAME_OVER;
+
                 else
                 {
-                     suddenDeath=true;
+                  suddenDeath=true;
+                  timeForSuddenDeath++;
+
                 }
 
+
             }
+
 
             if(timeToRespawn)
             {
@@ -709,18 +713,16 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
                  window.draw(whataSaveSprite);
 
              }
+             if(timeForSuddenDeath==1)
+             {
+                 window.clear();
+                 window.draw(hillSprite);
+                 window.draw(suddenDeathText);
+                 window.display();
+                 Sleep(3000);
+             }
 
              window.display();
-
-            if(suddenDeath)
-            {
-            if(shots || shots1)
-            {
-                Sleep(2000);
-                state = State::GAME_OVER;
-                suddenDeath=false;
-            }
-            }
 
         }
 
@@ -838,23 +840,6 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
           window.display();
         }
 
-
-
-        if(state == State::SUDDEN_DEATH)
-        {
-             window.clear();
-             window.draw(hillSprite);
-             suddenDeathText.setFont(gameOverfont);
-             suddenDeathText.setString("You Entered the Sudden Death Mode");
-             suddenDeathText.setCharacterSize(80);
-             suddenDeathText.setPosition(window.getSize().x/8, window.getSize().y/2);
-             window.draw(suddenDeathText);
-             suddenDeath = true;
-             window.display();
-             Sleep(3000);
-             state = State::PLAYING;
-
-        }
         if(state == State::GAME_OVER)
         {
 
@@ -910,14 +895,6 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
                 winnerText<<"Congratulations, Player 2";
                 winnerTextDisplay.setPosition(sf::Vector2f(window.getSize().x/6,window.getSize().y/1.3));
             }
-
-            else
-            {
-//                winnerTextDisplay.setFillColor(sf::Color::White);
-                winnerText<<"It's a Draw";
-                winnerTextDisplay.setPosition(sf::Vector2f(window.getSize().x/3,window.getSize().y/1.3));
-            }
-
 
             scoreDisplay.setCharacterSize(60);
             scoreDisplay.setPosition(sf::Vector2f(window.getSize().x/3,window.getSize().y/2.1));
