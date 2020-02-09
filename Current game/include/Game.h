@@ -96,7 +96,6 @@ class Game
     bool tooglePlayer=false;
     bool suddenDeath=false;
 
-    bool suddenDeath= false;
 
 
     //scoring

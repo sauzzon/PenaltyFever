@@ -312,7 +312,7 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
         //handle input while playing
         if(state == State::PLAYING)
         {
-<<<<<<< HEAD
+
             if(shots1 == 2)
             {
                 if(score == score1 )
@@ -322,7 +322,8 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
                 }
                 else
                     state = State::GAME_OVER;
-=======
+            }
+
             if(suddenDeath)
             {
                 if((shots==shots1)&&(score!=score1))
@@ -342,7 +343,6 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
                      suddenDeath=true;
                 }
 
->>>>>>> upstream/master
             }
 
             if(timeToRespawn)
@@ -617,6 +617,7 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
 
 
         } //end of playing state
+
  } //end of process event
 
  void Game::update()
@@ -823,13 +824,13 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
 
         if(state==State::PAUSED)
         {
-<<<<<<< HEAD
+
 
           window.clear(sf::Color::Blue);
-=======
+
             window.clear(sf::Color::Blue);
             window.draw(hillSprite);
->>>>>>> upstream/master
+
           window.draw(rectangle);
           window.draw(rectangle2);
           window.draw(resume);
@@ -909,16 +910,15 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
                 winnerText<<"Congratulations, Player 2";
                 winnerTextDisplay.setPosition(sf::Vector2f(window.getSize().x/6,window.getSize().y/1.3));
             }
-<<<<<<< HEAD
+
             else
             {
 //                winnerTextDisplay.setFillColor(sf::Color::White);
                 winnerText<<"It's a Draw";
                 winnerTextDisplay.setPosition(sf::Vector2f(window.getSize().x/3,window.getSize().y/1.3));
             }
-=======
 
->>>>>>> upstream/master
+
             scoreDisplay.setCharacterSize(60);
             scoreDisplay.setPosition(sf::Vector2f(window.getSize().x/3,window.getSize().y/2.1));
             scoreDisplay.setString(mScore.str());
