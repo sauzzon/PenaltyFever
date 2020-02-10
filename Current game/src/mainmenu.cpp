@@ -38,13 +38,13 @@ bool mainmenu::checker()
 {
     sf::Vector2i globalposition=sf::Mouse::getPosition();
     if(m_textstart.getGlobalBounds().contains(globalposition.x,globalposition.y))
-            {
-                return true;
-            }
-            else
-                {
-                    return false;
-                }
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 }
 void mainmenu::setpos(float x,float y)
 {

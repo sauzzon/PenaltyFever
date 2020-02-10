@@ -5,7 +5,7 @@ Target::Target()
 
     m_texture.loadFromFile("crosshair1.png");
     m_sprite.setTexture(m_texture);
-    m_sprite.setPosition(725,120);
+    m_sprite.setPosition(720,185);
 }
 
 Target::~Target()
@@ -72,7 +72,7 @@ sf::Vector2f Target::getPosition()
 
 void Target::spawn()
 {
-     m_sprite.setPosition(725,120);
+     m_sprite.setPosition(720,185);
 }
 void Target::setSpritePosition(int x,int y)
 {

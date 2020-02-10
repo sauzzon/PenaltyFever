@@ -52,6 +52,7 @@ class Goalkeeper
 
     private:
         sf::Texture m_texture;
+        sf::Texture m1_texture;
         sf::Sprite m_sprite;
 
         bool is0pressed=false;
