@@ -326,6 +326,7 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
                     if(score1!=score)
                     {
                         suddenDeath=false;
+                        timeForSuddenDeath=0;
                         state=State::GAME_OVER;
                     }
 

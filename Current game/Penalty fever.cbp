@@ -46,10 +46,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
-			<Add directory="E:/SFML/SFML-2.5.1/include" />
+			<Add directory="D:/penalty/PenaltyFever/Current game/SFML-2.5.1/include" />
 		</Compiler>
 		<Linker>
-			<Add directory="E:/SFML/SFML-2.5.1/lib" />
+			<Add directory="D:/penalty/PenaltyFever/Current game/SFML-2.5.1/lib" />
 		</Linker>
 		<Unit filename="include/Collision.h" />
 		<Unit filename="include/Football.h" />
