@@ -33,6 +33,7 @@ class Game
         void update();
         void render();
         void Detection();
+        void toogle();
 
 
 
@@ -61,7 +62,7 @@ class Game
          // The game will always be in one of four states
         enum class State
        {
-            HOME_PAGE, PAUSED, GAME_OVER, PLAYING ,ABOUT ,HOWTOPLAY
+            HOME_PAGE, PAUSED, GAME_OVER,SINGLE_PLAYER,MULTI_PLAYER,ABOUT ,HOWTOPLAY
        };
 
        State state;
@@ -80,7 +81,7 @@ class Game
     Goalpost goalpost;
     Goalkeeper goalkeeper;
     Target target;
-    mainmenu menu1,menu2,menu3,menu4;
+    mainmenu menu0,menu1,menu2,menu3,menu4;
 
     //parameters of the game
     sf::Vector2f newpos;

@@ -209,36 +209,41 @@ Game::Game()
 
  void Game::run()
  {
-
-
      while (window.isOpen())
      {
          processEvents();
          update();
          render();
      }
-
  }
  void Game::processEvents()
  {
-sf::Vector2i globalposition=sf::Mouse::getPosition();
+ sf::Vector2i globalposition=sf::Mouse::getPosition();
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::KeyPressed)
 
                 //pause the game
-                if(event.key.code==sf::Keyboard::Escape && state== State::PLAYING)
+                if(event.key.code==sf::Keyboard::Escape && (state == State::SINGLE_PLAYER || state == State::MULTI_PLAYER))
                 {
                     state=State::PAUSED;
                 }
                 //restart while pause
+                if(state == State::SINGLE_PLAYER)
+                    if(event.key.code==sf::Mouse::Left && state==State::PAUSED && resume.getGlobalBounds().contains(globalposition.x,globalposition.y))
+                    {
+                        state=State::SINGLE_PLAYER;
+                        //restart clock so there is not a frame jump
+                        clock.restart();
+                    }
 
-                if(event.key.code==sf::Mouse::Left && state==State::PAUSED && resume.getGlobalBounds().contains(globalposition.x,globalposition.y))
-                {
-                    state=State::PLAYING;
-                    //restart clock so there is not a frame jump
-                    clock.restart();
-                }
+                if(state == State::MULTI_PLAYER)
+                    if(event.key.code==sf::Mouse::Left && state==State::PAUSED && resume.getGlobalBounds().contains(globalposition.x,globalposition.y))
+                    {
+                        state=State::MULTI_PLAYER;
+                        //restart clock so there is not a frame jump
+                        clock.restart();
+                    }
 
                 //quit when paused
                 if(event.key.code==sf::Mouse::Left && state==State::PAUSED && rectangle2.getGlobalBounds().contains(globalposition.x,globalposition.y))
@@ -260,13 +265,18 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
 
 
 
-                state=State::HOME_PAGE;
+                    state=State::HOME_PAGE;
 
+                }
+                 //start new game
+                if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu0.checker()==true)
+                {
+                    state=State::SINGLE_PLAYER;
                 }
                 //start new game
                 if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu1.checker()==true)
                 {
-                    state=State::PLAYING;
+                    state=State::MULTI_PLAYER;
                 }
                 //How to play
                 if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu2.checker()==true)
@@ -302,21 +312,11 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
                 }
 
 
-
-
-
-
-                if(state==State::PLAYING)
-                {
-                //WASD movement coding here
-
-                }
-
         } //end event pooling
 
 
         //handle input while playing
-        if(state == State::PLAYING)
+        if(state == State::SINGLE_PLAYER || state == State::MULTI_PLAYER)
         {
 
           if(suddenDeath)
@@ -334,21 +334,20 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
 
             }
 
-            if((shots1==5)&&(shots==5))
-            {
+                if((shots1==5)&&(shots==5))
+                {
                 if(score1!=score)
-                state=State::GAME_OVER;
+                    state=State::GAME_OVER;
 
                 else
-                {
-                  suddenDeath=true;
-                  timeForSuddenDeath++;
+                    {
+                      suddenDeath=true;
+                      timeForSuddenDeath++;
+
+                    }
+
 
                 }
-
-
-            }
-
 
             if(timeToRespawn)
             {
@@ -388,6 +387,8 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
             }
 
 //without exchanging role
+if(state == State::SINGLE_PLAYER)
+    {
             if(!roleExchange)
             {
 
@@ -447,8 +448,6 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
 
 
                     }
-
-
 
 
             }
@@ -616,18 +615,208 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
 
             }
 
-            }//end of next role
+        }//end of next role
+    }
+
+    if(state == State::MULTI_PLAYER)
+    {
+
+             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && target.getPosition().y>120 )
+                target.moveUp();
+
+            else
+                    target.stopUp();
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)&& target.getPosition().y < 250)
+                target.moveDown();
+
+                else
+                    target.stopDown();
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && target.getPosition().x > 550)
+                target.moveLeft();
+
+                else
+                    target.stopLeft();
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&& target.getPosition().x <890)
+                target.moveRight();
+                else
+                    target.stopRight();
 
 
+            //
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            {
+
+                football.whistleSound();
+                shooter.kick();
+                holdButtonO = true;
+            }
 
 
-        } //end of playing state
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            {
+                goalkeeper.dive0();
 
- } //end of process event
+            }
+            else
+            {
+                goalkeeper.nodive0();
+
+            }
+
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+            {
+
+                goalkeeper.dive1();
+            }
+             else
+            {
+                goalkeeper.nodive1();
+
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+            {
+
+
+                 goalkeeper.dive2();
+
+
+            }
+             else
+            {
+                goalkeeper.nodive2();
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+            {
+
+                 goalkeeper.dive3();
+            }
+             else
+            {
+                goalkeeper.nodive3();
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+            {
+
+
+                 goalkeeper.dive4();
+            }
+             else
+            {
+                goalkeeper.nodive4();
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            {
+
+
+                 goalkeeper.dive5();
+
+            }
+             else
+            {
+                goalkeeper.nodive5();
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+            {
+
+
+                 goalkeeper.dive6();
+
+            }
+             else
+            {
+                goalkeeper.nodive6();
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+            {
+
+
+                 goalkeeper.dive7();
+            }
+             else
+            {
+                goalkeeper.nodive7();
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+            {
+
+
+                 goalkeeper.dive8();
+
+            }
+             else
+            {
+                goalkeeper.nodive8();
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+            {
+
+                 goalkeeper.dive9();
+            }
+             else
+            {
+                goalkeeper.nodive9();
+            }
+
+
+            goalkeeper.update();
+
+            if(holdButtonO)
+            {
+
+                isBallShoot=football.kick(target.getPosition(),newpos);
+
+
+                   if(isBallShoot)
+                    {
+                        holdButtonO=false;
+
+                        //goalkeeper.update();
+                         timeToRespawn=true;
+
+                         Detection();
+
+                         if(!roleExchange)
+                         {
+                            shots++;
+                            roleExchange = true;
+                         }
+                         else
+                         {
+                             shots1++;
+                             roleExchange = false;
+                         }
+
+
+                    }
+
+
+            }
+
+            }
+    }
+ }
+
+
+//end of playing state
+
+  //end of process event
 
  void Game::update()
  {
- if(state ==State::PLAYING)
+ if(state ==State::SINGLE_PLAYER || state == State::MULTI_PLAYER)
    {
        //update delta time
        sf::Time dt=clock.restart();
@@ -667,7 +856,7 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
 
  void Game::render()
  {
-     if(state==State::PLAYING)
+     if(state==State::SINGLE_PLAYER || state == State::MULTI_PLAYER)
         {
 
             window.clear(sf::Color::Green);
@@ -689,14 +878,13 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
             window.draw(goalpost.getSprite());
             window.draw(goalkeeper.getSprite());
 
-            if(!roleExchange)
+            if(!roleExchange && state == State::SINGLE_PLAYER)
                 window.draw(target.getSprite());
 
             window.draw(football.getSprite());
             window.draw(AttemptText);
             window.draw(scoreText);
             window.draw(saveText);
-
 
             window.draw(Attempt1Text);
             window.draw(score1Text);
@@ -730,7 +918,9 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
 
         if(state==State::HOME_PAGE)
         {
-            menu1.setstring("START");
+            menu0.setstring("SINGLE PLAYER");
+            menu0.setpos(500,300);
+            menu1.setstring("MULTI PLAYER");
             menu1.setpos(500,350);
             menu2.setstring("HOW TO PLAY");
             menu2.setpos(500,400);
@@ -740,24 +930,41 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
             menu4.setpos(500,500);
 
 
-            if(menu1.checker()==true)
+            if(menu0.checker()==true)
             {
-                menu1.setcolor();
+                menu0.setcolor();
                 //window.clear();
-                window.draw(menu1.getsprite());
+                window.draw(menu0.getsprite());
                 window.draw(title);
+                window.draw(menu0.gettext());
                 window.draw(menu1.gettext());
                 window.draw(menu2.gettext());
                 window.draw(menu3.gettext());
                 window.draw(menu4.gettext());
                 window.display();
             }
+
+            else if(menu1.checker()==true)
+            {
+                menu1.setcolor();
+                //window.clear();
+                window.draw(menu0.getsprite());
+                window.draw(title);
+                window.draw(menu0.gettext());
+                window.draw(menu1.gettext());
+                window.draw(menu2.gettext());
+                window.draw(menu3.gettext());
+                window.draw(menu4.gettext());
+                window.display();
+            }
+
             else if(menu2.checker()==true)
             {
                  menu2.setcolor();
                 //window.clear();
-                window.draw(menu1.getsprite());
+                window.draw(menu0.getsprite());
                 window.draw(title);
+                window.draw(menu0.gettext());
                 window.draw(menu1.gettext());
                 window.draw(menu2.gettext());
                 window.draw(menu3.gettext());
@@ -768,8 +975,9 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
             {
                  menu3.setcolor();
                 //window.clear();
-                window.draw(menu1.getsprite());
+                window.draw(menu0.getsprite());
                 window.draw(title);
+                window.draw(menu0.gettext());
                 window.draw(menu1.gettext());
                 window.draw(menu2.gettext());
                 window.draw(menu3.gettext());
@@ -780,8 +988,9 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
             {
                  menu4.setcolor();
                 //window.clear();
-                window.draw(menu1.getsprite());
+                window.draw(menu0.getsprite());
                 window.draw(title);
+                window.draw(menu0.gettext());
                 window.draw(menu1.gettext());
                 window.draw(menu2.gettext());
                 window.draw(menu3.gettext());
@@ -789,17 +998,19 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
                 window.display();
             }
             else{
+                    menu0.resetcolor();
                     menu1.resetcolor();
                     menu2.resetcolor();
                     menu3.resetcolor();
                     menu4.resetcolor();
                     window.clear();
-            window.draw(menu1.getsprite());
+            window.draw(menu0.getsprite());
             window.draw(title);
+            window.draw(menu0.gettext());
             window.draw(menu1.gettext());
             window.draw(menu2.gettext());
-             window.draw(menu3.gettext());
-                window.draw(menu4.gettext());
+            window.draw(menu3.gettext());
+            window.draw(menu4.gettext());
             window.display();
             }
 
@@ -808,7 +1019,7 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
         {
 
           window.clear();
-          window.draw(menu1.getsprite());
+          window.draw(menu0.getsprite());
           window.draw(rectangle);
           window.draw(rectangle2);
           window.draw(aboutgame);
@@ -818,7 +1029,7 @@ sf::Vector2i globalposition=sf::Mouse::getPosition();
         {
 
           window.clear();
-          window.draw(menu1.getsprite());
+          window.draw(menu0.getsprite());
           window.draw(rectangle);
           window.draw(rectangle2);
           window.draw(howtoplay);
@@ -933,18 +1144,16 @@ void Game::resetScore()
      }
 
 
-     void Game::Detection()
-
+void Game::Detection()
     {
      if(Collision::PixelPerfectTest(football.getSprite(),goalkeeper.getSprite()))
                         {
                             hitskeeper = true;
                             football.missSound();
                             hitstarget = false;
-
                             if(!roleExchange)
                                saved++;
-                               else
+                            else
                                 saved1++;
 
 
@@ -954,13 +1163,12 @@ void Game::resetScore()
                             hitskeeper=false;
                             hitstarget=true;
                             football.goalSound();
-
                             if(!roleExchange)
                             score++;
                             else
                                 score1++;
+                            }
 
-                        }
  }
 
 

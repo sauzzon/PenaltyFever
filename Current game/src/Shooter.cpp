@@ -8,17 +8,18 @@ Shooter::Shooter()
     m_sprite.setTextureRect(sf::IntRect(0,0,150,297));
     m_sprite.setPosition(610,430);
     m_sprite.scale(0.80f,0.80f);
+    m1_texture.loadFromFile("player2blue.png");
+
 
 
 }
 void Shooter::setToRed()
 {
-    m_texture.loadFromFile("player2.png");
-
+    m_sprite.setTexture(m_texture);
 }
 void Shooter::setToBlue()
 {
-    m_texture.loadFromFile("player2blue.png");
+    m_sprite.setTexture(m1_texture);
 
 }
 

@@ -7,7 +7,8 @@ Goalkeeper::Goalkeeper()
     m_sprite.setTexture(m_texture);
 
     m_sprite.setTextureRect(sf::IntRect(0,0,120,150));
-             m_sprite.setPosition(675,180);
+    m_sprite.setPosition(675,180);
+    m1_texture.loadFromFile("gksprite.png");
 }
 
 Goalkeeper::~Goalkeeper()
@@ -16,11 +17,11 @@ Goalkeeper::~Goalkeeper()
 }
 void Goalkeeper::setToRed()
 {
-    m_texture.loadFromFile("gksprite.png");
+    m_sprite.setTexture(m1_texture);
 }
 void Goalkeeper::setToBlue()
 {
-    m_texture.loadFromFile("gkspriteblue.png");
+    m_sprite.setTexture(m_texture);
 }
 sf::Sprite Goalkeeper::getSprite()
 {
