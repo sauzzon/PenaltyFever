@@ -769,9 +769,7 @@ if(state == State::SINGLE_PLAYER)
             {
                 goalkeeper.nodive9();
             }
-
-
-            goalkeeper.update();
+            //goalkeeper.update();
 
             if(holdButtonO)
             {
@@ -783,7 +781,7 @@ if(state == State::SINGLE_PLAYER)
                     {
                         holdButtonO=false;
 
-                        //goalkeeper.update();
+                        goalkeeper.update();
                          timeToRespawn=true;
 
                          Detection();
