@@ -786,6 +786,8 @@ if(state == State::SINGLE_PLAYER)
                         //goalkeeper.update();
                          timeToRespawn=true;
 
+                         Detection();
+
                          if(!roleExchange)
                          {
                             shots++;
@@ -797,7 +799,7 @@ if(state == State::SINGLE_PLAYER)
                              roleExchange = false;
                          }
 
-                     Detection();
+
                     }
 
 
@@ -942,7 +944,7 @@ if(state == State::SINGLE_PLAYER)
                 window.display();
             }
 
-            if(menu1.checker()==true)
+            else if(menu1.checker()==true)
             {
                 menu1.setcolor();
                 //window.clear();
@@ -1150,9 +1152,9 @@ void Game::Detection()
                             football.missSound();
                             hitstarget = false;
                             if(!roleExchange)
-                               saved1++;
-                               else
-                                saved++;
+                               saved++;
+                            else
+                                saved1++;
 
 
                         }
@@ -1162,9 +1164,9 @@ void Game::Detection()
                             hitstarget=true;
                             football.goalSound();
                             if(!roleExchange)
-                            score1++;
+                            score++;
                             else
-                                score++;
+                                score1++;
                             }
 
  }
