@@ -1087,22 +1087,22 @@ if(state == State::SINGLE_PLAYER)
             std::stringstream winnerText;
             std::stringstream mScore1;
 
-            mScore<<"  Player 1 : "<<score;
-            mScore1<<"  Player 2: "<<score1;
+            mScore<<"  Team Red : "<<score;
+            mScore1<<"  Team Blue: "<<score1;
             winnerTextDisplay.setFillColor(sf::Color::Black);
 
 
             if(score>score1)
             {
 //                winnerTextDisplay.setFillColor(sf::Color(245,20,20));
-                winnerText<<"Congratulations, Player 1";
+                winnerText<<"Congratulations, Team Red";
                 winnerTextDisplay.setPosition(sf::Vector2f(window.getSize().x/6,window.getSize().y/1.3));
 
             }
             else if(score < score1)
             {
 //                winnerTextDisplay.setFillColor(sf::Color(0,50,245));
-                winnerText<<"Congratulations, Player 2";
+                winnerText<<"Congratulations, Team Blue";
                 winnerTextDisplay.setPosition(sf::Vector2f(window.getSize().x/6,window.getSize().y/1.3));
             }
 
