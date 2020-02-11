@@ -58,13 +58,13 @@ Game::Game()
 //    goalText.setPosition (600,300);
 //    whataSaveText.setPosition (420,300);
 
-    score1Text.setPosition (1100,135);
-    Attempt1Text.setPosition(1100,85);
-    save1Text.setPosition(1100,185);
+    score1Text.setPosition (1100,5);
+    Attempt1Text.setPosition(1100,120);
+    save1Text.setPosition(1100,60);
 
-     scoreText.setPosition (20,135);
-    AttemptText.setPosition(20,85);
-    saveText.setPosition(20,185);
+     scoreText.setPosition (20,5);
+    AttemptText.setPosition(20,120);
+    saveText.setPosition(20,60);
     resume.setPosition(600,350);
     quittomain.setPosition(600,500);
     aboutgame.setPosition(530,250);
@@ -136,6 +136,28 @@ Game::Game()
     whataSaveTexture.loadFromFile("whataSave.png");
     whataSaveSprite.setTexture(whataSaveTexture);
     whataSaveSprite.setPosition(380,300);
+
+    //score sprites
+    scoregoaltexture.loadFromFile("scoregoal.png");
+    scoregoal.setTexture(scoregoaltexture);
+    scoregoal1.setTexture(scoregoaltexture);
+
+    //scoregoal.setPosition(sf::Vector2f(20,85));
+    //scoregoal1.setPosition(sf::Vector2f(1100,85));
+
+    scoregoal.setScale(0.03f,0.03f);
+    scoregoal1.setScale(0.03f,0.03f);
+
+
+    scoremisstexture.loadFromFile("scoremiss.png");
+    scoremiss.setTexture(scoremisstexture);
+    scoremiss1.setTexture(scoremisstexture);
+
+    //scoremiss.setPosition(sf::Vector2f(20,185));
+    //scoremiss1.setPosition(sf::Vector2f(1100,185));
+
+    scoremiss.setScale(0.05f,0.05f);
+    scoremiss1.setScale(0.05f,0.05f);
 
 
      //dbox line
@@ -229,21 +251,25 @@ Game::Game()
                     state=State::PAUSED;
                 }
                 //restart while pause
-                if(state == State::SINGLE_PLAYER)
+                if(state == State::PAUSED)
+                {
                     if(event.key.code==sf::Mouse::Left && state==State::PAUSED && resume.getGlobalBounds().contains(globalposition.x,globalposition.y))
                     {
                         state=State::SINGLE_PLAYER;
                         //restart clock so there is not a frame jump
                         clock.restart();
                     }
+                }
 
-                if(state == State::MULTI_PLAYER)
+                if(state == State::PAUSED)
+                {
                     if(event.key.code==sf::Mouse::Left && state==State::PAUSED && resume.getGlobalBounds().contains(globalposition.x,globalposition.y))
                     {
                         state=State::MULTI_PLAYER;
                         //restart clock so there is not a frame jump
                         clock.restart();
                     }
+                }
 
                 //quit when paused
                 if(event.key.code==sf::Mouse::Left && state==State::PAUSED && rectangle2.getGlobalBounds().contains(globalposition.x,globalposition.y))
@@ -829,8 +855,8 @@ if(state == State::SINGLE_PLAYER)
 
 
         s1<<"Total Shots: "<<shots;
-        s<<"Goals Scored: "<<score;
-        s2<<"Goals Missed: "<<saved;
+        s<<"Goals Scored: ";
+        s2<<"Goals Missed: ";
 
         scoreText.setString(s.str());
         AttemptText.setString(s1.str());
@@ -839,12 +865,13 @@ if(state == State::SINGLE_PLAYER)
          std::stringstream s3,s4,s5;
 
         s4<<"Total Shots: "<<shots1;
-        s3<<"Goals Scored: "<<score1;
-        s5<<"Goals Missed: "<<saved1;
+        s3<<"Goals Scored: ";
+        s5<<"Goals Missed: ";
 
         score1Text.setString(s3.str());
         Attempt1Text.setString(s4.str());
         save1Text.setString(s5.str());
+
 
 
 
@@ -883,10 +910,59 @@ if(state == State::SINGLE_PLAYER)
             window.draw(AttemptText);
             window.draw(scoreText);
             window.draw(saveText);
+            if(score>0)
+            {
+                int j=20;
+                for(int i=1;i<=score;i++)
+                {
+
+                     scoregoal.setPosition(sf::Vector2f(j,35));
+                     window.draw(scoregoal);
+                     j=j+35;
+                }
+            }
+
+            if(saved>0)
+            {
+                int j=20;
+                for(int i=1;i<=saved;i++)
+                {
+
+                     scoremiss.setPosition(sf::Vector2f(j,80));
+                     window.draw(scoremiss);
+                     j=j+35;
+                }
+            }
+            if(score1>0)
+            {
+                int j=1100;
+                for(int i=1;i<=score1;i++)
+                {
+
+                     scoregoal1.setPosition(sf::Vector2f(j,35));
+                     window.draw(scoregoal1);
+                     j=j+35;
+                }
+            }
+            if(saved1>0)
+            {
+                int j=1100;
+                for(int i=1;i<=saved1;i++)
+                {
+
+                     scoremiss1.setPosition(sf::Vector2f(j,80));
+                     window.draw(scoremiss1);
+                     j=j+35;
+                }
+            }
+
+             //window.draw(scoremiss);
 
             window.draw(Attempt1Text);
             window.draw(score1Text);
             window.draw(save1Text);
+            //window.draw(scoregoal1);
+            //window.draw(scoremiss1);
 
 
              if(hitstarget)
@@ -961,6 +1037,7 @@ if(state == State::SINGLE_PLAYER)
                  menu2.setcolor();
                 //window.clear();
                 window.draw(menu0.getsprite());
+
                 window.draw(title);
                 window.draw(menu0.gettext());
                 window.draw(menu1.gettext());

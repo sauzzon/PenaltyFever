@@ -47,11 +47,21 @@ class Game
         sf::Texture dboxSemiTexture;
         sf::Sprite dboxSemiSprite;
 
+        sf::Sprite scoregoal;
+        sf::Sprite scoregoal1;
+        sf::Texture scoregoaltexture;
+        sf::Sprite scoremiss;
+        sf::Sprite scoremiss1;
+        sf::Texture scoremisstexture;
+
+
         sf::Texture goalTextTexture;
         sf::Sprite goalTextSprite;
+        sf::Sprite goalTextSprite1;
 
         sf::Texture whataSaveTexture;
         sf::Sprite whataSaveSprite;
+        sf::Sprite whataSaveSprite1;
 
         sf::Texture close1;
 
@@ -62,7 +72,7 @@ class Game
          // The game will always be in one of four states
         enum class State
        {
-            HOME_PAGE, PAUSED, GAME_OVER,SINGLE_PLAYER,MULTI_PLAYER,ABOUT ,HOWTOPLAY
+            HOME_PAGE, PAUSED, GAME_OVER,SINGLE_PLAYER,MULTI_PLAYER,ABOUT ,HOWTOPLAY, PLAYER_INPUT, NEWGAME
        };
 
        State state;
@@ -132,6 +142,10 @@ class Game
     sf::Text save1Text;
 
     sf::Text suddenDeathText;
+
+    sf::String playerInput;
+            sf::Text playerText;
+
 
 
 

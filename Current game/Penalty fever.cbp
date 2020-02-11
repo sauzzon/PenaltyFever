@@ -14,7 +14,8 @@
 				<Compiler>
 					<Add option="-std=c++14" />
 					<Add option="-g" />
-					<Add directory="D:/penalty/PenaltyFever/Current game/include" />
+					<Add directory="include" />
+					<Add directory="C:/Users/cooldude24/Desktop/penaltygame/penalty/Current game/SFML-2.5.1/include" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -22,6 +23,7 @@
 					<Add library="sfml-network-d" />
 					<Add library="sfml-window-d" />
 					<Add library="sfml-system-d" />
+					<Add directory="SFML-2.5.1/lib" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -46,7 +48,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
-			<Add directory="D:/penalty/PenaltyFever/Current game/SFML-2.5.1/include" />
+			<Add directory="SFML-2.5.1/include" />
 		</Compiler>
 		<Linker>
 			<Add directory="D:/penalty/PenaltyFever/Current game/SFML-2.5.1/lib" />
