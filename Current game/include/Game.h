@@ -126,9 +126,6 @@ class Game
     sf::Font font;
     sf::Font titlefont;
     sf::Font gameOverfont;
-    sf::Text scoreText;
-    sf::Text AttemptText;
-    sf::Text saveText;
     sf::Text goalText;
     sf::Text whataSaveText;
     sf::Text resume;
@@ -136,10 +133,9 @@ class Game
     sf::Text howtoplay;
     sf::Text aboutgame;
     sf::Text title;
+    sf::Text teamRed;
+    sf::Text teamBlue;
 
-    sf::Text score1Text;
-    sf::Text Attempt1Text;
-    sf::Text save1Text;
 
     sf::Text suddenDeathText;
 

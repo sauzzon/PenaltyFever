@@ -24,21 +24,15 @@ Game::Game()
 //    goalText.setFont(font);
 //    whataSaveText.setFont(font);
 
-    AttemptText.setFont(font);
-    saveText.setFont(font);
-    scoreText.setFont(font);
     suddenDeathText.setFont(gameOverfont);
 
-
-
-    Attempt1Text.setFont(font);
-    save1Text.setFont(font);
-    score1Text.setFont(font);
     resume.setFont(font);
     quittomain.setFont(font);
     aboutgame.setFont(font);
     howtoplay.setFont(font);
     title.setFont(titlefont);
+    teamRed.setFont(titlefont);
+    teamBlue.setFont(titlefont);
 
     //string
     resume.setString(L"RESUME");
@@ -47,6 +41,8 @@ Game::Game()
     howtoplay.setString(L"Use arrow keys to position target\nUse spacebar to shoot\nUse Q,W,E,A,S,D,F,Z,X,C to dive");
     title.setString(L"PENALTY  FEVER");
     suddenDeathText.setString("You Entered the Sudden Death Mode");
+    teamRed.setString("Team Red:");
+    teamBlue.setString("Team Blue:");
 
 
 
@@ -58,41 +54,22 @@ Game::Game()
 //    goalText.setPosition (600,300);
 //    whataSaveText.setPosition (420,300);
 
-    score1Text.setPosition (1100,5);
-    Attempt1Text.setPosition(1100,120);
-    save1Text.setPosition(1100,60);
-
-     scoreText.setPosition (20,5);
-    AttemptText.setPosition(20,120);
-    saveText.setPosition(20,60);
     resume.setPosition(600,350);
     quittomain.setPosition(600,500);
     aboutgame.setPosition(530,250);
     howtoplay.setPosition(530,250);
     title.setPosition(250,0);
+    teamRed.setPosition(20,90);
+    teamBlue.setPosition(1100,90);
     suddenDeathText.setPosition(window.getSize().x/8, window.getSize().y/2);
-
-    scoreText.setStyle(sf::Text::Bold);
-    AttemptText.setStyle(sf::Text::Bold);
-    saveText.setStyle(sf::Text::Bold);
-
-    score1Text.setStyle(sf::Text::Bold);
-    Attempt1Text.setStyle(sf::Text::Bold);
-    save1Text.setStyle(sf::Text::Bold);
 
 
     goalText.setCharacterSize(90);
     whataSaveText.setCharacterSize(80);
-
-    scoreText.setCharacterSize(25);
-    AttemptText.setCharacterSize(25);
-    saveText.setCharacterSize(25);
      suddenDeathText.setCharacterSize(80);
+     teamRed.setCharacterSize(35);
+     teamBlue.setCharacterSize(35);
 
-
-    score1Text.setCharacterSize(25);
-    Attempt1Text.setCharacterSize(25);
-    save1Text.setCharacterSize(25);
     resume.setCharacterSize(50);
     aboutgame.setCharacterSize(25);
     howtoplay.setCharacterSize(25);
@@ -102,18 +79,13 @@ Game::Game()
 //    goalText.setFillColor(sf::Color::Blue);
 //    whataSaveText.setFillColor(sf::Color::Blue);
 
-    scoreText.setFillColor(sf::Color::Red);
-    saveText.setFillColor(sf::Color::Red);
-    AttemptText.setFillColor(sf::Color::Red);
-
-    score1Text.setFillColor(sf::Color::Blue);
-    save1Text.setFillColor(sf::Color::Blue);
-    Attempt1Text.setFillColor(sf::Color::Blue);
     resume.setFillColor(sf::Color::White);
     quittomain.setFillColor(sf::Color::White);
     howtoplay.setFillColor(sf::Color::White);
     aboutgame.setFillColor(sf::Color::White);
     title.setFillColor(sf::Color::Black);
+    teamRed.setFillColor(sf::Color::Red);
+    teamBlue.setFillColor(sf::Color::Blue);
 
 
 
@@ -850,31 +822,6 @@ if(state == State::SINGLE_PLAYER)
        target.update(dt);
 
 
-       //update score
-        std::stringstream s,s1,s2;
-
-
-        s1<<"Total Shots: "<<shots;
-        s<<"Goals Scored: ";
-        s2<<"Goals Missed: ";
-
-        scoreText.setString(s.str());
-        AttemptText.setString(s1.str());
-        saveText.setString(s2.str());
-
-         std::stringstream s3,s4,s5;
-
-        s4<<"Total Shots: "<<shots1;
-        s3<<"Goals Scored: ";
-        s5<<"Goals Missed: ";
-
-        score1Text.setString(s3.str());
-        Attempt1Text.setString(s4.str());
-        save1Text.setString(s5.str());
-
-
-
-
    }//end updating scene
 
  }
@@ -902,21 +849,20 @@ if(state == State::SINGLE_PLAYER)
             window.draw(shooter.getSprite());
             window.draw(goalpost.getSprite());
             window.draw(goalkeeper.getSprite());
+            window.draw(teamRed);
+            window.draw(teamBlue);
 
             if(!roleExchange && state == State::SINGLE_PLAYER)
                 window.draw(target.getSprite());
 
             window.draw(football.getSprite());
-            window.draw(AttemptText);
-            window.draw(scoreText);
-            window.draw(saveText);
             if(score>0)
             {
                 int j=20;
                 for(int i=1;i<=score;i++)
                 {
 
-                     scoregoal.setPosition(sf::Vector2f(j,35));
+                     scoregoal.setPosition(sf::Vector2f(j,130));
                      window.draw(scoregoal);
                      j=j+35;
                 }
@@ -928,7 +874,7 @@ if(state == State::SINGLE_PLAYER)
                 for(int i=1;i<=saved;i++)
                 {
 
-                     scoremiss.setPosition(sf::Vector2f(j,80));
+                     scoremiss.setPosition(sf::Vector2f(j,150));
                      window.draw(scoremiss);
                      j=j+35;
                 }
@@ -939,7 +885,7 @@ if(state == State::SINGLE_PLAYER)
                 for(int i=1;i<=score1;i++)
                 {
 
-                     scoregoal1.setPosition(sf::Vector2f(j,35));
+                     scoregoal1.setPosition(sf::Vector2f(j,130));
                      window.draw(scoregoal1);
                      j=j+35;
                 }
@@ -950,17 +896,13 @@ if(state == State::SINGLE_PLAYER)
                 for(int i=1;i<=saved1;i++)
                 {
 
-                     scoremiss1.setPosition(sf::Vector2f(j,80));
+                     scoremiss1.setPosition(sf::Vector2f(j,150));
                      window.draw(scoremiss1);
                      j=j+35;
                 }
             }
 
              //window.draw(scoremiss);
-
-            window.draw(Attempt1Text);
-            window.draw(score1Text);
-            window.draw(save1Text);
             //window.draw(scoregoal1);
             //window.draw(scoremiss1);
 
