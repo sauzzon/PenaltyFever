@@ -4,17 +4,17 @@
 
 class Goalpost
 {
-    public:
-        Goalpost();
-        virtual ~Goalpost();
+public:
+    Goalpost();
+    virtual ~Goalpost();
 
-        sf::Sprite getSprite();
+    sf::Sprite getSprite();
 
-    protected:
+protected:
 
-    private:
-        sf::Texture m_texture;
-        sf::Sprite m_sprite;
+private:
+    sf::Texture m_texture;
+    sf::Sprite m_sprite;
 };
 
 #endif // GOALPOST_H

@@ -3,12 +3,12 @@
 
 Shooter::Shooter()
 {
-    m_texture.loadFromFile("player2.png");
+    m_texture.loadFromFile("Resources/Images/player2.png");
     m_sprite.setTexture(m_texture);
     m_sprite.setTextureRect(sf::IntRect(0,0,150,297));
     m_sprite.setPosition(610,430);
     m_sprite.scale(0.80f,0.80f);
-    m1_texture.loadFromFile("player2blue.png");
+    m1_texture.loadFromFile("Resources/Images/player2blue.png");
 
 
 

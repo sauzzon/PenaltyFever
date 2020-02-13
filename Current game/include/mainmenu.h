@@ -6,15 +6,15 @@
 class mainmenu
 {
 public:
-mainmenu();
-virtual ~mainmenu();
-sf::Sprite getsprite();
-sf::Text gettext();
-void setcolor();
-void resetcolor();
-bool checker();
-void setstring(std::string);
-void setpos(float,float);
+    mainmenu();
+    virtual ~mainmenu();
+    sf::Sprite getsprite();
+    sf::Text gettext();
+    void setcolor();
+    void resetcolor();
+    bool checker();
+    void setstring(std::string);
+    void setpos(float,float);
 private:
     sf::Texture m_texture;
     sf::Sprite m_sprite;

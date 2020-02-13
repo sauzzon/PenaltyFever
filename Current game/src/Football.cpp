@@ -3,13 +3,13 @@
 
 Football::Football()
 {
-    m_texture.loadFromFile("ball.png");
+    m_texture.loadFromFile("Resources/Images/ball.png");
     m_sprite.setTexture(m_texture);
     m_sprite.setPosition(700,580);
 
-    goalbuffer.loadFromFile("goalmusic.wav");
-    missbuffer.loadFromFile("misssound.wav");
-    whistlebuffer.loadFromFile("whistle.wav");
+    goalbuffer.loadFromFile("Resources/Music/goalmusic.wav");
+    missbuffer.loadFromFile("Resources/Music/misssound.wav");
+    whistlebuffer.loadFromFile("Resources/Music/whistle.wav");
 
     gsound.setBuffer(goalbuffer);
     msound.setBuffer(missbuffer);
@@ -36,33 +36,33 @@ bool Football::kick(sf::Vector2f targetPosition,sf::Vector2f &newpos)
 
     if(newpos.x!=static_cast<int>(targetPosition.x))
 
-                    {
-                        float u;
-                        u=((580-targetPosition.y)/(targetPosition.x-700));
-                        if(u<0)
-                            u*=(-1);
+    {
+        float u;
+        u=((580-targetPosition.y)/(targetPosition.x-700));
+        if(u<0)
+            u*=(-1);
 
 
 
-                        if(newpos.x < targetPosition.x)
-                            newpos.x +=1;
-                        else if(newpos.x > targetPosition.x)
-                            newpos.x -=1;
-                        if(newpos.y > targetPosition.y)
-                            newpos.y -=u;
-                        else if(newpos.y < targetPosition.y)
-                            newpos.y +=u;
+        if(newpos.x < targetPosition.x)
+            newpos.x +=1;
+        else if(newpos.x > targetPosition.x)
+            newpos.x -=1;
+        if(newpos.y > targetPosition.y)
+            newpos.y -=u;
+        else if(newpos.y < targetPosition.y)
+            newpos.y +=u;
 
-                        m_sprite.setPosition(newpos);
-                        return 0;
+        m_sprite.setPosition(newpos);
+        return 0;
 
 
-                    }
+    }
 
-                   else
-                    {
-                        return 1;
-                    }
+    else
+    {
+        return 1;
+    }
 
 
 }
@@ -74,7 +74,7 @@ void Football::goalSound()
 }
 void Football::missSound()
 {
-   msound.play();
+    msound.play();
 }
 void Football::whistleSound()
 {
@@ -83,5 +83,5 @@ void Football::whistleSound()
 }
 void Football::spawn()
 {
-     m_sprite.setPosition(700,580);
+    m_sprite.setPosition(700,580);
 }
