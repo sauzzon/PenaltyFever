@@ -389,206 +389,47 @@ if(state == State::SINGLE_PLAYER)
     {
             if(!roleExchange)
             {
-
-             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && target.getPosition().y>120 )
-                target.moveUp();
-
-            else
-                    target.stopUp();
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)&& target.getPosition().y < 250)
-                target.moveDown();
-
-                else
-                    target.stopDown();
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && target.getPosition().x > 550)
-                target.moveLeft();
-
-                else
-                    target.stopLeft();
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&& target.getPosition().x <890)
-                target.moveRight();
-                else
-                    target.stopRight();
-
-
-            //
+                target.handle_input();
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             {
-
                 football.whistleSound();
                 shooter.kick();
                 holdButtonO = true;
             }
-
-
             if( holdButtonO)
             {
                 int dive=goalkeeper.divePosition();
 
-
                 //implement ball animation after kicking
                 isBallShoot=football.kick(target.getPosition(),newpos);
-
 
                    if(isBallShoot)
                     {
                         holdButtonO=false;
                         goalkeeper.kick(dive,target.getPosition().x);
                         timeToRespawn=true;
-
                         shots++;
                         Detection();
                         roleExchange=true;
-
-
                     }
-
-
             }
-
             }//end of one role
 
             //after exchanging role
 
-
             if(roleExchange)
 
-            {
+        {
                 target.setSpritePosition(2000,2000);
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            {
-                 football.whistleSound();
-                shooter.kick();
-                holdButtonO=true;
-                goalkeeper.dive0();
-
-            }
-            else
-            {
-                goalkeeper.nodive0();
-
-            }
-
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::C))
-            {
-                 football.whistleSound();
-                shooter.kick();
-                holdButtonO=true;
-                goalkeeper.dive1();
-            }
-             else
-            {
-                goalkeeper.nodive1();
-
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-            {
-                 football.whistleSound();
-                shooter.kick();
-                 holdButtonO=true;
-                 goalkeeper.dive2();
-
-
-            }
-             else
-            {
-                goalkeeper.nodive2();
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-            {
-                 football.whistleSound();
-                shooter.kick();
-                 holdButtonO=true;
-                 goalkeeper.dive3();
-            }
-             else
-            {
-                goalkeeper.nodive3();
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-            {
-                 football.whistleSound();
-                shooter.kick();
-                 holdButtonO=true;
-                 goalkeeper.dive4();
-            }
-             else
-            {
-                goalkeeper.nodive4();
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            {
-                 football.whistleSound();
-                shooter.kick();
-                 holdButtonO=true;
-                 goalkeeper.dive5();
-
-            }
-             else
-            {
-                goalkeeper.nodive5();
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-            {
-                 football.whistleSound();
-                shooter.kick();
-                 holdButtonO=true;
-                 goalkeeper.dive6();
-
-            }
-             else
-            {
-                goalkeeper.nodive6();
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            {
-                 football.whistleSound();
-                shooter.kick();
-                 holdButtonO=true;
-                 goalkeeper.dive7();
-            }
-             else
-            {
-                goalkeeper.nodive7();
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::F))
-            {
-                 football.whistleSound();
-                shooter.kick();
-                 holdButtonO=true;
-                 goalkeeper.dive8();
-
-            }
-             else
-            {
-                goalkeeper.nodive8();
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            {
-                 football.whistleSound();
-                shooter.kick();
-                 holdButtonO=true;
-                 goalkeeper.dive9();
-            }
-             else
-            {
-                goalkeeper.nodive9();
-            }
-
+               bool x=goalkeeper.handle_input();
+               if(x)
+               {
+                   football.whistleSound();
+                   shooter.kick();
+                   holdButtonO=true;
+               }
 
             goalkeeper.update();
 
@@ -596,192 +437,38 @@ if(state == State::SINGLE_PLAYER)
             {
 
                 isBallShoot=football.kick(shooter.shootPosition(),newpos);
-
-
                    if(isBallShoot)
                     {
                         holdButtonO=false;
 
-                        //goalkeeper.update();
                         timeToRespawn=true;
                          shots1++;
-
                      Detection();
                      roleExchange=false;
-
                     }
-
             }
-
         }//end of next role
     }
 
     if(state == State::MULTI_PLAYER)
     {
-
-             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && target.getPosition().y>120 )
-                target.moveUp();
-
-            else
-                    target.stopUp();
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)&& target.getPosition().y < 250)
-                target.moveDown();
-
-                else
-                    target.stopDown();
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && target.getPosition().x > 550)
-                target.moveLeft();
-
-                else
-                    target.stopLeft();
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&& target.getPosition().x <890)
-                target.moveRight();
-                else
-                    target.stopRight();
-
-
-            //
-
+        target.handle_input();
+        goalkeeper.handle_input();
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             {
-
                 football.whistleSound();
                 shooter.kick();
                 holdButtonO = true;
             }
-
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            {
-                goalkeeper.dive0();
-
-            }
-            else
-            {
-                goalkeeper.nodive0();
-
-            }
-
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::C))
-            {
-
-                goalkeeper.dive1();
-            }
-             else
-            {
-                goalkeeper.nodive1();
-
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-            {
-
-
-                 goalkeeper.dive2();
-
-
-            }
-             else
-            {
-                goalkeeper.nodive2();
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-            {
-
-                 goalkeeper.dive3();
-            }
-             else
-            {
-                goalkeeper.nodive3();
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-            {
-
-
-                 goalkeeper.dive4();
-            }
-             else
-            {
-                goalkeeper.nodive4();
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            {
-
-
-                 goalkeeper.dive5();
-
-            }
-             else
-            {
-                goalkeeper.nodive5();
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-            {
-
-
-                 goalkeeper.dive6();
-
-            }
-             else
-            {
-                goalkeeper.nodive6();
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            {
-
-
-                 goalkeeper.dive7();
-            }
-             else
-            {
-                goalkeeper.nodive7();
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::F))
-            {
-
-
-                 goalkeeper.dive8();
-
-            }
-             else
-            {
-                goalkeeper.nodive8();
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            {
-
-                 goalkeeper.dive9();
-            }
-             else
-            {
-                goalkeeper.nodive9();
-            }
-            //goalkeeper.update();
-
             if(holdButtonO)
             {
-
                 isBallShoot=football.kick(target.getPosition(),newpos);
-
 
                    if(isBallShoot)
                     {
                         holdButtonO=false;
-
                         goalkeeper.update();
                          timeToRespawn=true;
-
                          Detection();
 
                          if(!roleExchange)
@@ -795,9 +482,7 @@ if(state == State::SINGLE_PLAYER)
                              roleExchange = false;
                          }
 
-
                     }
-
 
             }
 
@@ -805,10 +490,6 @@ if(state == State::SINGLE_PLAYER)
     }
  }
 
-
-//end of playing state
-
-  //end of process event
 
  void Game::update()
  {
@@ -820,8 +501,6 @@ if(state == State::SINGLE_PLAYER)
        gameTimeTotal+=dt;
         //update the target
        target.update(dt);
-
-
    }//end updating scene
 
  }

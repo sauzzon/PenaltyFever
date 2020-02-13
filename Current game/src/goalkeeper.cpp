@@ -35,6 +35,128 @@ int Goalkeeper::divePosition()
     return rnum;
 }
 
+bool Goalkeeper::handle_input()
+{
+    diveKeyPressed=false;
+
+     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            {
+                is0pressed=true;
+                diveKeyPressed=true;
+
+            }
+            else
+            {
+                is0pressed=false;
+
+            }
+
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+            {
+
+                is1pressed=true;
+                 diveKeyPressed=true;
+            }
+             else
+            {
+                is1pressed=false;
+
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+            {
+                 is2pressed=true;
+                  diveKeyPressed=true;
+
+            }
+             else
+            {
+                is2pressed=false;
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+            {
+                 is3pressed=true;
+                  diveKeyPressed=true;
+            }
+             else
+            {
+                is3pressed=false;
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+            {
+                 is4pressed=true;
+                  diveKeyPressed=true;
+            }
+             else
+            {
+                is4pressed=false;
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            {
+                 is5pressed=true;
+                  diveKeyPressed=true;
+
+            }
+             else
+            {
+              is5pressed=false;
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+            {
+                 is6pressed=true;
+                  diveKeyPressed=true;
+
+            }
+             else
+            {
+                is6pressed=false;
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+            {
+                 is7pressed=true;
+                  diveKeyPressed=true;
+            }
+             else
+            {
+                is7pressed=false;
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+            {
+
+                 is8pressed=true;
+                  diveKeyPressed=true;
+
+            }
+             else
+            {
+                is8pressed=false;
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+            {
+                 is9pressed=true;
+                  diveKeyPressed=true;
+            }
+             else
+            {
+                is9pressed=false;
+            }
+
+            if(diveKeyPressed)
+            {
+                return 1;
+            }
+            else
+                return 0;
+
+}
 
 void Goalkeeper::kick(int n,float pos)
 {
@@ -153,113 +275,6 @@ void Goalkeeper::kick(int n,float pos)
     }
 
 
-void Goalkeeper::dive0()
-{
-
-    is0pressed=true;
-
-}
-void Goalkeeper::dive1()
-{
-
-is1pressed=true;
-}
-void Goalkeeper::dive2()
-{
-
-is2pressed=true;
-}
-void Goalkeeper::dive3()
-{
-
-is3pressed=true;
-}
-void Goalkeeper::dive4()
-{
-
-    is4pressed=true;
-
-}
-void Goalkeeper::dive5()
-{
-
-is5pressed=true;
-}
-void Goalkeeper::dive6()
-{
-
-is6pressed=true;
-}
-void Goalkeeper::dive7()
-{
-
-is7pressed=true;
-}
-void Goalkeeper::dive8()
-{
-
-is8pressed=true;
-}
-void Goalkeeper::dive9()
-{
-
-is9pressed=true;
-}
-
-
-void Goalkeeper::nodive0()
-{
-
-    is0pressed=false;
-
-}
-void Goalkeeper::nodive1()
-{
-
-is1pressed=false;
-}
-void Goalkeeper::nodive2()
-{
-
-is2pressed=false;
-}
-void Goalkeeper::nodive3()
-{
-
-is3pressed=false;
-}
-void Goalkeeper::nodive4()
-{
-
-    is4pressed=false;
-
-}
-void Goalkeeper::nodive5()
-{
-
-is5pressed=false;
-}
-void Goalkeeper::nodive6()
-{
-
-is6pressed=false;
-}
-void Goalkeeper::nodive7()
-{
-
-is7pressed=false;
-}
-void Goalkeeper::nodive8()
-{
-
-is8pressed=false;
-}
-void Goalkeeper::nodive9()
-{
-
-is9pressed=false;
-}
-
 
    void Goalkeeper::update()
    {
@@ -321,15 +336,15 @@ is9pressed=false;
 
 void Goalkeeper::resetPosition()
 {
-    bool is0pressed=false;
-         bool is1pressed=false;
-          bool is2pressed=false;
-           bool is3pressed=false;
-            bool is4pressed=false;
-             bool is5pressed=false;
-              bool is6pressed=false;
-               bool is7pressed=false;
-                bool is8pressed=false;
-                 bool is9pressed=false;
+    is0pressed=false;
+         is1pressed=false;
+          is2pressed=false;
+           is3pressed=false;
+            is4pressed=false;
+             is5pressed=false;
+              is6pressed=false;
+               is7pressed=false;
+                is8pressed=false;
+                 is9pressed=false;
 }
 

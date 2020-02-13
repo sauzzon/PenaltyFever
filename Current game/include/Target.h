@@ -8,6 +8,10 @@ class Target
         Target();
         virtual ~Target();
         sf::Sprite getSprite();
+
+
+        void handle_input();
+
         void moveUp();
         void stopUp();
         void moveDown();
@@ -19,6 +23,7 @@ class Target
         void spawn();
         void setSpritePosition(int,int);
         void setSpritePosition(sf::Vector2f);
+
 
 
 

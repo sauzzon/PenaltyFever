@@ -16,6 +16,34 @@ sf::Sprite Target::getSprite()
 {
     return m_sprite;
 }
+
+void Target::handle_input()
+{
+     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && getPosition().y>120 )
+                moveUp();
+
+            else
+                    stopUp();
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)&& getPosition().y < 250)
+                moveDown();
+
+                else
+                    stopDown();
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && getPosition().x > 550)
+                moveLeft();
+
+                else
+                    stopLeft();
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&& getPosition().x <890)
+                moveRight();
+                else
+                    stopRight();
+
+}
+
 void Target::moveUp()
 {
     upPressed=true;
