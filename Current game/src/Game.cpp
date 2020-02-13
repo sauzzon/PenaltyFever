@@ -6,26 +6,16 @@ Game::Game()
 
     music.openFromFile("cl.wav");
     music.play();
-
     //start with home page state
     state = State::HOME_PAGE;
-
     //initialize temporary position to initial position
     newpos.x=700;
     newpos.y=580;
-
-
-
     //font and texts
     gameOverfont.loadFromFile("LobsterTwo-Bold.otf");
     font.loadFromFile("Quicksand-Regular.otf");
     titlefont.loadFromFile("mymenu.ttf");
-
-//    goalText.setFont(font);
-//    whataSaveText.setFont(font);
-
     suddenDeathText.setFont(gameOverfont);
-
     resume.setFont(font);
     quittomain.setFont(font);
     aboutgame.setFont(font);
@@ -37,22 +27,12 @@ Game::Game()
     //string
     resume.setString(L"RESUME");
     quittomain.setString(L"MAINMENU");
-    aboutgame.setString(L"Penalty Fever is a fun\ngame for Penalty Practice in football.\nIt was created by\nSaujann, Sandeep , Sangam\nfor CPP project\n\nENJOY IT !!!!");
+    aboutgame.setString(L"Penalty Fever is a fun\ngame for Penalty Practice in football.\nIt was created by\nSaujan, Sandeep , Sangam\nfor CPP project\n\nENJOY IT !!!!");
     howtoplay.setString(L"Use arrow keys to position target\nUse spacebar to shoot\nUse Q,W,E,A,S,D,F,Z,X,C to dive");
     title.setString(L"PENALTY  FEVER");
     suddenDeathText.setString("You Entered the Sudden Death Mode");
     teamRed.setString("Team Red:");
     teamBlue.setString("Team Blue:");
-
-
-
-
-
-//    goalText.setString("Goal!!!");
-//    whataSaveText.setString("What a Save!!!");
-
-//    goalText.setPosition (600,300);
-//    whataSaveText.setPosition (420,300);
 
     resume.setPosition(600,350);
     quittomain.setPosition(600,500);
@@ -63,21 +43,16 @@ Game::Game()
     teamBlue.setPosition(1100,90);
     suddenDeathText.setPosition(window.getSize().x/8, window.getSize().y/2);
 
-
     goalText.setCharacterSize(90);
     whataSaveText.setCharacterSize(80);
      suddenDeathText.setCharacterSize(80);
      teamRed.setCharacterSize(35);
      teamBlue.setCharacterSize(35);
-
     resume.setCharacterSize(50);
     aboutgame.setCharacterSize(25);
     howtoplay.setCharacterSize(25);
     quittomain.setCharacterSize(50);
     title.setCharacterSize(75);
-
-//    goalText.setFillColor(sf::Color::Blue);
-//    whataSaveText.setFillColor(sf::Color::Blue);
 
     resume.setFillColor(sf::Color::White);
     quittomain.setFillColor(sf::Color::White);
@@ -87,24 +62,17 @@ Game::Game()
     teamRed.setFillColor(sf::Color::Red);
     teamBlue.setFillColor(sf::Color::Blue);
 
-
-
     //hill background
     hillTexture.loadFromFile("cartoonhill.png");
     hillSprite.setTexture(hillTexture);
 
-
-
-    //goaltext
+    //goal text
     goalTextTexture.loadFromFile("goalText.png");
     goalTextSprite.setTexture(goalTextTexture);
     goalTextSprite.setPosition(450,280);
     goalTextSprite.scale(0.5,0.5);
 
-
-
-
-    //whatasavetext
+    //what a save text
     whataSaveTexture.loadFromFile("whataSave.png");
     whataSaveSprite.setTexture(whataSaveTexture);
     whataSaveSprite.setPosition(380,300);
@@ -114,9 +82,6 @@ Game::Game()
     scoregoal.setTexture(scoregoaltexture);
     scoregoal1.setTexture(scoregoaltexture);
 
-    //scoregoal.setPosition(sf::Vector2f(20,85));
-    //scoregoal1.setPosition(sf::Vector2f(1100,85));
-
     scoregoal.setScale(0.03f,0.03f);
     scoregoal1.setScale(0.03f,0.03f);
 
@@ -125,39 +90,28 @@ Game::Game()
     scoremiss.setTexture(scoremisstexture);
     scoremiss1.setTexture(scoremisstexture);
 
-    //scoremiss.setPosition(sf::Vector2f(20,185));
-    //scoremiss1.setPosition(sf::Vector2f(1100,185));
-
     scoremiss.setScale(0.05f,0.05f);
     scoremiss1.setScale(0.05f,0.05f);
-
 
      //dbox line
     line.setSize(sf::Vector2f(window.getSize().x,3));
     line.setPosition(sf::Vector2f(0,290));
     line.setFillColor(sf::Color::White);
-
     line1.setSize(sf::Vector2f(183,3));
     line1.setRotation(90);
     line1.setPosition(sf::Vector2f(400,290));
-
     line2.setSize(sf::Vector2f(640,3));
     line2.setPosition(sf::Vector2f(400,470));
     line2.setFillColor(sf::Color::White);
-
     line3.setSize(sf::Vector2f(180,3));
     line3.setRotation(90);
     line3.setPosition(sf::Vector2f(1040,290));
-
-    //
     line4.setSize(sf::Vector2f(433,3));
     line4.setRotation(90);
     line4.setPosition(sf::Vector2f(170,290));
-
     line5.setSize(sf::Vector2f(430,3));
     line5.setRotation(90);
     line5.setPosition(sf::Vector2f(1270,290));
-
     line6.setSize(sf::Vector2f(1100,3));
     line6.setPosition(sf::Vector2f(170,720));
     line6.setFillColor(sf::Color::White);
@@ -170,36 +124,19 @@ Game::Game()
           rectangle.setOutlineColor(sf::Color::White);
           rectangle.setPosition(500,200);
           rectangle.setFillColor(sf::Color::Black);
-
-
           rectangle2.setSize(sf::Vector2f(20,20));
           rectangle2.setPosition(1000,180);
           rectangle2.setTexture(&close1);
-          //rectangle2.setFillColor(sf::Color::Blue);
-
-
-
-
-
     //
     dboxSemiTexture.loadFromFile("dbox.png");
     dboxSemiSprite.setTexture(dboxSemiTexture);
     dboxSemiSprite.setPosition(sf::Vector2f(580,720));
     dboxSemiSprite.setScale(2.0f,2.0f);
 
-    //
     ballpos.setRadius(6.0f);
-    //ballpos.setOutlineThickness(2);
-    //ballpos.setOutlineColor(sf::Color::White);
     ballpos.setFillColor(sf::Color::White);
     ballpos.setPosition(717,590);
-
-
-
-
-
 }
-
 
  void Game::run()
  {
@@ -228,7 +165,6 @@ Game::Game()
                     if(event.key.code==sf::Mouse::Left && state==State::PAUSED && resume.getGlobalBounds().contains(globalposition.x,globalposition.y))
                     {
                         state=State::SINGLE_PLAYER;
-                        //restart clock so there is not a frame jump
                         clock.restart();
                     }
                 }
@@ -238,7 +174,6 @@ Game::Game()
                     if(event.key.code==sf::Mouse::Left && state==State::PAUSED && resume.getGlobalBounds().contains(globalposition.x,globalposition.y))
                     {
                         state=State::MULTI_PLAYER;
-                        //restart clock so there is not a frame jump
                         clock.restart();
                     }
                 }
@@ -247,12 +182,8 @@ Game::Game()
                 if(event.key.code==sf::Mouse::Left && state==State::PAUSED && rectangle2.getGlobalBounds().contains(globalposition.x,globalposition.y))
                 {
                     window.close();
-
                 }
-
-
                 //quit to main menu when paused
-
                 if(event.key.code==sf::Mouse::Left && state==State::PAUSED && quittomain.getGlobalBounds().contains(globalposition.x,globalposition.y))
                 {
                     resetScore();
@@ -260,11 +191,7 @@ Game::Game()
                     tooglePlayer=true;
                     timeToRespawn=true;
                     roleExchange=false;
-
-
-
                     state=State::HOME_PAGE;
-
                 }
                  //start new game
                 if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu0.checker()==true)
@@ -281,42 +208,32 @@ Game::Game()
                 {
                     state=State::HOWTOPLAY;
                 }
-
                 //about
                 if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu3.checker()==true)
                 {
                     state=State::ABOUT;
                 }
 
-                //returnfromabout
-                //sf::Vector2i globalposition=sf::Mouse::getPosition();
-
                 if(event.key.code==sf::Mouse::Left && state==State::ABOUT && rectangle2.getGlobalBounds().contains(globalposition.x,globalposition.y))
                 {
                      state=State::HOME_PAGE;
                 }
 
-                //returnfromhowtoplay
+                //return from how to play
                 if(event.key.code==sf::Mouse::Left && state==State::HOWTOPLAY && rectangle2.getGlobalBounds().contains(globalposition.x,globalposition.y))
                 {
                      state=State::HOME_PAGE;
                 }
-
-
                 //quit the game
                 if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu4.checker()==true)
                 {
                     window.close();
                 }
-
-
         } //end event pooling
-
 
         //handle input while playing
         if(state == State::SINGLE_PLAYER || state == State::MULTI_PLAYER)
         {
-
           if(suddenDeath)
             {
                 if(shots==shots1)
@@ -327,33 +244,25 @@ Game::Game()
                         timeForSuddenDeath=0;
                         state=State::GAME_OVER;
                     }
-
                 }
-
             }
 
                 if((shots1==5)&&(shots==5))
                 {
                 if(score1!=score)
                     state=State::GAME_OVER;
-
                 else
                     {
                       suddenDeath=true;
                       timeForSuddenDeath++;
-
                     }
-
-
                 }
 
             if(timeToRespawn)
             {
                 Sleep(2500);
-
                 newpos.x=700;
                 newpos.y=580;
-
 
                 football.spawn();
                 goalkeeper.spawn();
@@ -362,31 +271,24 @@ Game::Game()
                 hitstarget = false;
                 hitskeeper=false;
 
-
                 if(!tooglePlayer)
                 {
                     goalkeeper.setToRed();
                     shooter.setToBlue();
                     tooglePlayer = true;
                 }
-
                 else
                 {
                     goalkeeper.setToBlue();
                     shooter.setToRed();
                     tooglePlayer = false;
                 }
-
-
-
                 timeToRespawn=false;
-
-
             }
 
 //without exchanging role
-if(state == State::SINGLE_PLAYER)
-    {
+   if(state == State::SINGLE_PLAYER)
+        {
             if(!roleExchange)
             {
                 target.handle_input();
@@ -400,7 +302,6 @@ if(state == State::SINGLE_PLAYER)
             if( holdButtonO)
             {
                 int dive=goalkeeper.divePosition();
-
                 //implement ball animation after kicking
                 isBallShoot=football.kick(target.getPosition(),newpos);
 
@@ -416,15 +317,12 @@ if(state == State::SINGLE_PLAYER)
             }
             }//end of one role
 
-            //after exchanging role
-
             if(roleExchange)
 
-        {
+           {
                 target.setSpritePosition(2000,2000);
-
-               bool x=goalkeeper.handle_input();
-               if(x)
+                bool x=goalkeeper.handle_input();
+                if(x)
                {
                    football.whistleSound();
                    shooter.kick();
@@ -432,19 +330,16 @@ if(state == State::SINGLE_PLAYER)
                }
 
             goalkeeper.update();
-
             if(holdButtonO)
             {
-
                 isBallShoot=football.kick(shooter.shootPosition(),newpos);
                    if(isBallShoot)
                     {
                         holdButtonO=false;
-
                         timeToRespawn=true;
-                         shots1++;
-                     Detection();
-                     roleExchange=false;
+                        shots1++;
+                        Detection();
+                        roleExchange=false;
                     }
             }
         }//end of next role
@@ -470,7 +365,6 @@ if(state == State::SINGLE_PLAYER)
                         goalkeeper.update();
                          timeToRespawn=true;
                          Detection();
-
                          if(!roleExchange)
                          {
                             shots++;
@@ -481,27 +375,55 @@ if(state == State::SINGLE_PLAYER)
                              shots1++;
                              roleExchange = false;
                          }
-
                     }
-
             }
-
             }
     }
  }
 
+ void Game::Detection()
+    {
+     if(Collision::PixelPerfectTest(football.getSprite(),goalkeeper.getSprite()))
+                        {
+                            hitskeeper = true;
+                            football.missSound();
+                            hitstarget = false;
+                            if(!roleExchange)
+                               saved++;
+                            else
+                                saved1++;
+                        }
+                        else
+                        {
+                            hitskeeper=false;
+                            hitstarget=true;
+                            football.goalSound();
+                            if(!roleExchange)
+                            score++;
+                            else
+                                score1++;
+                            }
+ }
+
+ void Game::resetScore()
+     {
+         shots=0;
+         score=0;
+         saved=0;
+         shots1=0;
+         score1=0;
+         saved1=0;
+     }
 
  void Game::update()
  {
  if(state ==State::SINGLE_PLAYER || state == State::MULTI_PLAYER)
    {
-       //update delta time
        sf::Time dt=clock.restart();
        //update total game time
        gameTimeTotal+=dt;
-        //update the target
        target.update(dt);
-   }//end updating scene
+   }
 
  }
 
@@ -509,12 +431,9 @@ if(state == State::SINGLE_PLAYER)
  {
      if(state==State::SINGLE_PLAYER || state == State::MULTI_PLAYER)
         {
-
-            window.clear(sf::Color::Green);
-
+            window.clear();
             window.draw(hillSprite);
             window.draw(dboxSemiSprite);
-
             window.draw(line);
             window.draw(line1);
             window.draw(line2);
@@ -522,37 +441,32 @@ if(state == State::SINGLE_PLAYER)
             window.draw(line4);
             window.draw(line5);
             window.draw(line6);
-
             window.draw(ballpos);
-
             window.draw(shooter.getSprite());
             window.draw(goalpost.getSprite());
             window.draw(goalkeeper.getSprite());
+            window.draw(football.getSprite());
             window.draw(teamRed);
             window.draw(teamBlue);
 
             if(!roleExchange && state == State::SINGLE_PLAYER)
                 window.draw(target.getSprite());
 
-            window.draw(football.getSprite());
             if(score>0)
             {
                 int j=20;
                 for(int i=1;i<=score;i++)
                 {
-
                      scoregoal.setPosition(sf::Vector2f(j,130));
                      window.draw(scoregoal);
                      j=j+35;
                 }
             }
-
             if(saved>0)
             {
                 int j=20;
                 for(int i=1;i<=saved;i++)
                 {
-
                      scoremiss.setPosition(sf::Vector2f(j,150));
                      window.draw(scoremiss);
                      j=j+35;
@@ -563,7 +477,6 @@ if(state == State::SINGLE_PLAYER)
                 int j=1100;
                 for(int i=1;i<=score1;i++)
                 {
-
                      scoregoal1.setPosition(sf::Vector2f(j,130));
                      window.draw(scoregoal1);
                      j=j+35;
@@ -574,26 +487,17 @@ if(state == State::SINGLE_PLAYER)
                 int j=1100;
                 for(int i=1;i<=saved1;i++)
                 {
-
                      scoremiss1.setPosition(sf::Vector2f(j,150));
                      window.draw(scoremiss1);
                      j=j+35;
                 }
             }
-
-             //window.draw(scoremiss);
-            //window.draw(scoregoal1);
-            //window.draw(scoremiss1);
-
-
              if(hitstarget)
              {
-
                 window.draw(goalTextSprite);
              }
              if(hitskeeper)
              {
-
                  window.draw(whataSaveSprite);
 
              }
@@ -605,11 +509,8 @@ if(state == State::SINGLE_PLAYER)
                  window.display();
                  Sleep(3000);
              }
-
              window.display();
-
         }
-
 
         if(state==State::HOME_PAGE)
         {
@@ -624,82 +525,24 @@ if(state == State::SINGLE_PLAYER)
             menu4.setstring("QUIT");
             menu4.setpos(500,500);
 
-
             if(menu0.checker()==true)
-            {
                 menu0.setcolor();
-                //window.clear();
-                window.draw(menu0.getsprite());
-                window.draw(title);
-                window.draw(menu0.gettext());
-                window.draw(menu1.gettext());
-                window.draw(menu2.gettext());
-                window.draw(menu3.gettext());
-                window.draw(menu4.gettext());
-                window.display();
-            }
-
             else if(menu1.checker()==true)
-            {
                 menu1.setcolor();
-                //window.clear();
-                window.draw(menu0.getsprite());
-                window.draw(title);
-                window.draw(menu0.gettext());
-                window.draw(menu1.gettext());
-                window.draw(menu2.gettext());
-                window.draw(menu3.gettext());
-                window.draw(menu4.gettext());
-                window.display();
-            }
-
             else if(menu2.checker()==true)
-            {
                  menu2.setcolor();
-                //window.clear();
-                window.draw(menu0.getsprite());
-
-                window.draw(title);
-                window.draw(menu0.gettext());
-                window.draw(menu1.gettext());
-                window.draw(menu2.gettext());
-                window.draw(menu3.gettext());
-                window.draw(menu4.gettext());
-                window.display();
-            }
             else if(menu3.checker()==true)
-            {
                  menu3.setcolor();
-                //window.clear();
-                window.draw(menu0.getsprite());
-                window.draw(title);
-                window.draw(menu0.gettext());
-                window.draw(menu1.gettext());
-                window.draw(menu2.gettext());
-                window.draw(menu3.gettext());
-                window.draw(menu4.gettext());
-                window.display();
-            }
             else if(menu4.checker()==true)
-            {
                  menu4.setcolor();
-                //window.clear();
-                window.draw(menu0.getsprite());
-                window.draw(title);
-                window.draw(menu0.gettext());
-                window.draw(menu1.gettext());
-                window.draw(menu2.gettext());
-                window.draw(menu3.gettext());
-                window.draw(menu4.gettext());
-                window.display();
-            }
-            else{
+            else {
                     menu0.resetcolor();
                     menu1.resetcolor();
                     menu2.resetcolor();
                     menu3.resetcolor();
                     menu4.resetcolor();
                     window.clear();
+                    }
             window.draw(menu0.getsprite());
             window.draw(title);
             window.draw(menu0.gettext());
@@ -708,12 +551,9 @@ if(state == State::SINGLE_PLAYER)
             window.draw(menu3.gettext());
             window.draw(menu4.gettext());
             window.display();
-            }
-
         }
         if(state==State::ABOUT)
         {
-
           window.clear();
           window.draw(menu0.getsprite());
           window.draw(rectangle);
@@ -723,7 +563,6 @@ if(state == State::SINGLE_PLAYER)
         }
         if(state==State::HOWTOPLAY)
         {
-
           window.clear();
           window.draw(menu0.getsprite());
           window.draw(rectangle);
@@ -734,23 +573,17 @@ if(state == State::SINGLE_PLAYER)
 
         if(state==State::PAUSED)
         {
-
-
-          window.clear(sf::Color::Blue);
-
-            window.clear(sf::Color::Blue);
+            window.clear();
             window.draw(hillSprite);
-
-          window.draw(rectangle);
-          window.draw(rectangle2);
-          window.draw(resume);
-          window.draw(quittomain);
-          window.display();
+            window.draw(rectangle);
+            window.draw(rectangle2);
+            window.draw(resume);
+            window.draw(quittomain);
+            window.display();
         }
 
         if(state == State::GAME_OVER)
         {
-
             window.clear();
             sf::Text mgameOver;
             mgameOver.setFont(gameOverfont);
@@ -780,7 +613,6 @@ if(state == State::SINGLE_PLAYER)
             scoreDisplay.setFillColor(sf::Color(245,20,20));
             score1Display.setFillColor(sf::Color(0,50, 245));
 
-
             std::stringstream mScore;
             std::stringstream winnerText;
             std::stringstream mScore1;
@@ -789,84 +621,31 @@ if(state == State::SINGLE_PLAYER)
             mScore1<<"  Team Blue: "<<score1;
             winnerTextDisplay.setFillColor(sf::Color::Black);
 
-
             if(score>score1)
             {
-//                winnerTextDisplay.setFillColor(sf::Color(245,20,20));
                 winnerText<<"Congratulations, Team Red";
                 winnerTextDisplay.setPosition(sf::Vector2f(window.getSize().x/6,window.getSize().y/1.3));
-
             }
             else if(score < score1)
             {
-//                winnerTextDisplay.setFillColor(sf::Color(0,50,245));
                 winnerText<<"Congratulations, Team Blue";
                 winnerTextDisplay.setPosition(sf::Vector2f(window.getSize().x/6,window.getSize().y/1.3));
             }
-
             scoreDisplay.setCharacterSize(60);
             scoreDisplay.setPosition(sf::Vector2f(window.getSize().x/3,window.getSize().y/2.1));
             scoreDisplay.setString(mScore.str());
             score1Display.setCharacterSize(60);
             score1Display.setPosition(sf::Vector2f(window.getSize().x/3,window.getSize().y/1.7));
             score1Display.setString(mScore1.str());
-
             winnerTextDisplay.setCharacterSize(70);
-
             winnerTextDisplay.setString(winnerText.str());
 
             window.draw(score1Display);
             window.draw(scoreDisplay);
-
-
             window.draw(winnerTextDisplay);
             window.display();
             Sleep(6000);
             resetScore();
             state= State::HOME_PAGE;
-
  }
-
  }
-
-void Game::resetScore()
-     {
-         shots=0;
-         score=0;
-         saved=0;
-         shots1=0;
-         score1=0;
-         saved1=0;
-     }
-
-
-void Game::Detection()
-    {
-     if(Collision::PixelPerfectTest(football.getSprite(),goalkeeper.getSprite()))
-                        {
-                            hitskeeper = true;
-                            football.missSound();
-                            hitstarget = false;
-                            if(!roleExchange)
-                               saved++;
-                            else
-                                saved1++;
-
-
-                        }
-                        else
-                        {
-                            hitskeeper=false;
-                            hitstarget=true;
-                            football.goalSound();
-                            if(!roleExchange)
-                            score++;
-                            else
-                                score1++;
-                            }
-
- }
-
-
-
-
