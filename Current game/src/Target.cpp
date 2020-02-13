@@ -3,7 +3,7 @@
 Target::Target()
 {
 
-    m_texture.loadFromFile("crosshair1.png");
+    m_texture.loadFromFile("Resources/Images/crosshair1.png");
     m_sprite.setTexture(m_texture);
     m_sprite.setPosition(720,185);
 }
@@ -19,28 +19,28 @@ sf::Sprite Target::getSprite()
 
 void Target::handle_input()
 {
-     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && getPosition().y>120 )
-                moveUp();
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && getPosition().y>120 )
+        moveUp();
 
-            else
-                    stopUp();
+    else
+        stopUp();
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)&& getPosition().y < 250)
-                moveDown();
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)&& getPosition().y < 250)
+        moveDown();
 
-                else
-                    stopDown();
+    else
+        stopDown();
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && getPosition().x > 550)
-                moveLeft();
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && getPosition().x > 550)
+        moveLeft();
 
-                else
-                    stopLeft();
+    else
+        stopLeft();
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&& getPosition().x <890)
-                moveRight();
-                else
-                    stopRight();
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&& getPosition().x <890)
+        moveRight();
+    else
+        stopRight();
 
 }
 
@@ -54,7 +54,7 @@ void Target::stopUp()
 }
 void Target::moveDown()
 {
-   downPressed=true;
+    downPressed=true;
 }
 void Target::stopDown()
 {
@@ -62,7 +62,7 @@ void Target::stopDown()
 }
 void Target::moveLeft()
 {
-  leftPressed=true;
+    leftPressed=true;
 }
 void Target::stopLeft()
 {
@@ -70,7 +70,7 @@ void Target::stopLeft()
 }
 void Target::moveRight()
 {
-  rightPressed=true;
+    rightPressed=true;
 }
 void Target::stopRight()
 {
@@ -80,16 +80,16 @@ void Target::stopRight()
 void Target::update(sf::Time dt)
 {
     sf::Vector2f movement(0.f, 0.f);
-if (upPressed)
-movement.y -= 100.f;
-if (downPressed)
-movement.y += 100.f;
-if (leftPressed)
-movement.x -= 100.f;
-if (rightPressed)
-movement.x += 100.f;
+    if (upPressed)
+        movement.y -= 100.f;
+    if (downPressed)
+        movement.y += 100.f;
+    if (leftPressed)
+        movement.x -= 100.f;
+    if (rightPressed)
+        movement.x += 100.f;
 
-m_sprite.move(movement*dt.asSeconds());
+    m_sprite.move(movement*dt.asSeconds());
 
 }
 
@@ -100,7 +100,7 @@ sf::Vector2f Target::getPosition()
 
 void Target::spawn()
 {
-     m_sprite.setPosition(720,185);
+    m_sprite.setPosition(720,185);
 }
 void Target::setSpritePosition(int x,int y)
 {

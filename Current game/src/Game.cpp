@@ -1,10 +1,10 @@
 #include "Game.h"
 using std::string;
 Game::Game()
-:window(sf::VideoMode(sf::VideoMode::getDesktopMode().width,sf::VideoMode::getDesktopMode().height), "Penalty Fever",sf::Style::Fullscreen)
+    :window(sf::VideoMode(sf::VideoMode::getDesktopMode().width,sf::VideoMode::getDesktopMode().height), "Penalty Fever",sf::Style::Fullscreen)
 {
 
-    music.openFromFile("cl.wav");
+    music.openFromFile("Resources/Music/cl.wav");
     music.play();
     //start with home page state
     state = State::HOME_PAGE;
@@ -12,9 +12,9 @@ Game::Game()
     newpos.x=700;
     newpos.y=580;
     //font and texts
-    gameOverfont.loadFromFile("LobsterTwo-Bold.otf");
-    font.loadFromFile("Quicksand-Regular.otf");
-    titlefont.loadFromFile("mymenu.ttf");
+    gameOverfont.loadFromFile("Resources/Fonts/LobsterTwo-Bold.otf");
+    font.loadFromFile("Resources/Fonts/Quicksand-Regular.otf");
+    titlefont.loadFromFile("Resources/Fonts/mymenu.ttf");
     suddenDeathText.setFont(gameOverfont);
     resume.setFont(font);
     quittomain.setFont(font);
@@ -45,9 +45,9 @@ Game::Game()
 
     goalText.setCharacterSize(90);
     whataSaveText.setCharacterSize(80);
-     suddenDeathText.setCharacterSize(80);
-     teamRed.setCharacterSize(35);
-     teamBlue.setCharacterSize(35);
+    suddenDeathText.setCharacterSize(80);
+    teamRed.setCharacterSize(35);
+    teamBlue.setCharacterSize(35);
     resume.setCharacterSize(50);
     aboutgame.setCharacterSize(25);
     howtoplay.setCharacterSize(25);
@@ -63,22 +63,22 @@ Game::Game()
     teamBlue.setFillColor(sf::Color::Blue);
 
     //hill background
-    hillTexture.loadFromFile("cartoonhill.png");
+    hillTexture.loadFromFile("Resources/Images/cartoonhill.png");
     hillSprite.setTexture(hillTexture);
 
     //goal text
-    goalTextTexture.loadFromFile("goalText.png");
+    goalTextTexture.loadFromFile("Resources/Images/goalText.png");
     goalTextSprite.setTexture(goalTextTexture);
     goalTextSprite.setPosition(450,280);
     goalTextSprite.scale(0.5,0.5);
 
     //what a save text
-    whataSaveTexture.loadFromFile("whataSave.png");
+    whataSaveTexture.loadFromFile("Resources/Images/whataSave.png");
     whataSaveSprite.setTexture(whataSaveTexture);
     whataSaveSprite.setPosition(380,300);
 
     //score sprites
-    scoregoaltexture.loadFromFile("scoregoal.png");
+    scoregoaltexture.loadFromFile("Resources/Images/scoregoal.png");
     scoregoal.setTexture(scoregoaltexture);
     scoregoal1.setTexture(scoregoaltexture);
 
@@ -86,14 +86,14 @@ Game::Game()
     scoregoal1.setScale(0.03f,0.03f);
 
 
-    scoremisstexture.loadFromFile("scoremiss.png");
+    scoremisstexture.loadFromFile("Resources/Images/scoremiss.png");
     scoremiss.setTexture(scoremisstexture);
     scoremiss1.setTexture(scoremisstexture);
 
     scoremiss.setScale(0.05f,0.05f);
     scoremiss1.setScale(0.05f,0.05f);
 
-     //dbox line
+    //dbox line
     line.setSize(sf::Vector2f(window.getSize().x,3));
     line.setPosition(sf::Vector2f(0,290));
     line.setFillColor(sf::Color::White);
@@ -116,19 +116,19 @@ Game::Game()
     line6.setPosition(sf::Vector2f(170,720));
     line6.setFillColor(sf::Color::White);
 
-    close1.loadFromFile("closeit.png");
+    close1.loadFromFile("Resources/Images/closeit.png");
 
     //about
-          rectangle.setSize(sf::Vector2f(500,500));
-          rectangle.setOutlineThickness(20);
-          rectangle.setOutlineColor(sf::Color::White);
-          rectangle.setPosition(500,200);
-          rectangle.setFillColor(sf::Color::Black);
-          rectangle2.setSize(sf::Vector2f(20,20));
-          rectangle2.setPosition(1000,180);
-          rectangle2.setTexture(&close1);
+    rectangle.setSize(sf::Vector2f(500,500));
+    rectangle.setOutlineThickness(20);
+    rectangle.setOutlineColor(sf::Color::White);
+    rectangle.setPosition(500,200);
+    rectangle.setFillColor(sf::Color::Black);
+    rectangle2.setSize(sf::Vector2f(20,20));
+    rectangle2.setPosition(1000,180);
+    rectangle2.setTexture(&close1);
     //
-    dboxSemiTexture.loadFromFile("dbox.png");
+    dboxSemiTexture.loadFromFile("Resources/Images/dbox.png");
     dboxSemiSprite.setTexture(dboxSemiTexture);
     dboxSemiSprite.setPosition(sf::Vector2f(580,720));
     dboxSemiSprite.setScale(2.0f,2.0f);
@@ -138,174 +138,172 @@ Game::Game()
     ballpos.setPosition(717,590);
 }
 
- void Game::run()
- {
-     while (window.isOpen())
-     {
-         processEvents();
-         update();
-         render();
-     }
- }
- void Game::processEvents()
- {
- sf::Vector2i globalposition=sf::Mouse::getPosition();
-        while (window.pollEvent(event))
+void Game::run()
+{
+    while (window.isOpen())
+    {
+        processEvents();
+        update();
+        render();
+    }
+}
+void Game::processEvents()
+{
+    sf::Vector2i globalposition=sf::Mouse::getPosition();
+    while (window.pollEvent(event))
+    {
+        //pause the game in single player mode
+        if(event.key.code==sf::Keyboard::Escape && state == State::SINGLE_PLAYER)
         {
-            if (event.type == sf::Event::KeyPressed)
+            state=State::SPAUSED;
+        }
 
-                //pause the game
-                if(event.key.code==sf::Keyboard::Escape && (state == State::SINGLE_PLAYER || state == State::MULTI_PLAYER))
-                {
-                    state=State::PAUSED;
-                }
-                //restart while pause
-                if(state == State::PAUSED)
-                {
-                    if(event.key.code==sf::Mouse::Left && state==State::PAUSED && resume.getGlobalBounds().contains(globalposition.x,globalposition.y))
-                    {
-                        state=State::SINGLE_PLAYER;
-                        clock.restart();
-                    }
-                }
-
-                if(state == State::PAUSED)
-                {
-                    if(event.key.code==sf::Mouse::Left && state==State::PAUSED && resume.getGlobalBounds().contains(globalposition.x,globalposition.y))
-                    {
-                        state=State::MULTI_PLAYER;
-                        clock.restart();
-                    }
-                }
-
-                //quit when paused
-                if(event.key.code==sf::Mouse::Left && state==State::PAUSED && rectangle2.getGlobalBounds().contains(globalposition.x,globalposition.y))
-                {
-                    window.close();
-                }
-                //quit to main menu when paused
-                if(event.key.code==sf::Mouse::Left && state==State::PAUSED && quittomain.getGlobalBounds().contains(globalposition.x,globalposition.y))
-                {
-                    resetScore();
-                    clock.restart();
-                    tooglePlayer=true;
-                    timeToRespawn=true;
-                    roleExchange=false;
-                    state=State::HOME_PAGE;
-                }
-                 //start new game
-                if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu0.checker()==true)
-                {
-                    state=State::SINGLE_PLAYER;
-                }
-                //start new game
-                if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu1.checker()==true)
-                {
-                    state=State::MULTI_PLAYER;
-                }
-                //How to play
-                if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu2.checker()==true)
-                {
-                    state=State::HOWTOPLAY;
-                }
-                //about
-                if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu3.checker()==true)
-                {
-                    state=State::ABOUT;
-                }
-
-                if(event.key.code==sf::Mouse::Left && state==State::ABOUT && rectangle2.getGlobalBounds().contains(globalposition.x,globalposition.y))
-                {
-                     state=State::HOME_PAGE;
-                }
-
-                //return from how to play
-                if(event.key.code==sf::Mouse::Left && state==State::HOWTOPLAY && rectangle2.getGlobalBounds().contains(globalposition.x,globalposition.y))
-                {
-                     state=State::HOME_PAGE;
-                }
-                //quit the game
-                if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu4.checker()==true)
-                {
-                    window.close();
-                }
-        } //end event pooling
-
-        //handle input while playing
-        if(state == State::SINGLE_PLAYER || state == State::MULTI_PLAYER)
+        if(event.key.code==sf::Keyboard::Escape && state == State::MULTI_PLAYER)
         {
-          if(suddenDeath)
+            state=State::MPAUSED;
+        }
+        //restart while pause
+
+        if(event.key.code==sf::Mouse::Left && state==State::SPAUSED && resume.getGlobalBounds().contains(globalposition.x,globalposition.y))
+        {
+            state=State::SINGLE_PLAYER;
+            clock.restart();
+        }
+
+        if(event.key.code==sf::Mouse::Left && state==State::MPAUSED && resume.getGlobalBounds().contains(globalposition.x,globalposition.y))
+        {
+            state=State::MULTI_PLAYER;
+            clock.restart();
+        }
+
+        //quit when paused
+        if(event.key.code==sf::Mouse::Left && (state==State::SPAUSED || state == State::MPAUSED) && rectangle2.getGlobalBounds().contains(globalposition.x,globalposition.y))
+        {
+            window.close();
+        }
+        //quit to main menu when paused
+        if(event.key.code==sf::Mouse::Left && (state==State::SPAUSED || state== State::MPAUSED) && quittomain.getGlobalBounds().contains(globalposition.x,globalposition.y))
+        {
+            resetScore();
+            clock.restart();
+            tooglePlayer=true;
+            timeToRespawn=true;
+            roleExchange=false;
+            state=State::HOME_PAGE;
+        }
+        //start new game
+        if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu0.checker()==true)
+        {
+            state=State::SINGLE_PLAYER;
+        }
+        //start new game
+        if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu1.checker()==true)
+        {
+            state=State::MULTI_PLAYER;
+        }
+        //How to play
+        if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu2.checker()==true)
+        {
+            state=State::HOWTOPLAY;
+        }
+        //about
+        if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu3.checker()==true)
+        {
+            state=State::ABOUT;
+        }
+
+        if(event.key.code==sf::Mouse::Left && state==State::ABOUT && rectangle2.getGlobalBounds().contains(globalposition.x,globalposition.y))
+        {
+            state=State::HOME_PAGE;
+        }
+
+        //return from how to play
+        if(event.key.code==sf::Mouse::Left && state==State::HOWTOPLAY && rectangle2.getGlobalBounds().contains(globalposition.x,globalposition.y))
+        {
+            state=State::HOME_PAGE;
+        }
+        //quit the game
+        if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu4.checker()==true)
+        {
+            window.close();
+        }
+    } //end event pooling
+
+    //handle input while playing
+    if(state == State::SINGLE_PLAYER || state == State::MULTI_PLAYER)
+    {
+        if(suddenDeath)
+        {
+            if(shots==shots1)
             {
-                if(shots==shots1)
-                {
-                    if(score1!=score)
-                    {
-                        suddenDeath=false;
-                        timeForSuddenDeath=0;
-                        state=State::GAME_OVER;
-                    }
-                }
-            }
-
-                if((shots1==5)&&(shots==5))
-                {
                 if(score1!=score)
+                {
+                    suddenDeath=false;
+                    timeForSuddenDeath=0;
                     state=State::GAME_OVER;
-                else
-                    {
-                      suddenDeath=true;
-                      timeForSuddenDeath++;
-                    }
                 }
-
-            if(timeToRespawn)
-            {
-                Sleep(2500);
-                newpos.x=700;
-                newpos.y=580;
-
-                football.spawn();
-                goalkeeper.spawn();
-                target.spawn();
-                shooter.spawn();
-                hitstarget = false;
-                hitskeeper=false;
-
-                if(!tooglePlayer)
-                {
-                    goalkeeper.setToRed();
-                    shooter.setToBlue();
-                    tooglePlayer = true;
-                }
-                else
-                {
-                    goalkeeper.setToBlue();
-                    shooter.setToRed();
-                    tooglePlayer = false;
-                }
-                timeToRespawn=false;
             }
+        }
+
+        if((shots1==5)&&(shots==5))
+        {
+            if(score1!=score)
+                state=State::GAME_OVER;
+            else
+            {
+                suddenDeath=true;
+                timeForSuddenDeath++;
+            }
+        }
+
+        if(timeToRespawn)
+        {
+            Sleep(2500);
+            newpos.x=700;
+            newpos.y=580;
+
+            football.spawn();
+            goalkeeper.spawn();
+            target.spawn();
+            shooter.spawn();
+            hitstarget = false;
+            hitskeeper=false;
+
+            if(!tooglePlayer)
+            {
+                goalkeeper.setToRed();
+                shooter.setToBlue();
+                tooglePlayer = true;
+            }
+            else
+            {
+                goalkeeper.setToBlue();
+                shooter.setToRed();
+                tooglePlayer = false;
+            }
+            timeToRespawn=false;
+        }
 
 //without exchanging role
-   if(state == State::SINGLE_PLAYER)
+        if(state == State::SINGLE_PLAYER)
         {
             if(!roleExchange)
             {
                 target.handle_input();
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-            {
-                football.whistleSound();
-                shooter.kick();
-                holdButtonO = true;
-            }
-            if( holdButtonO)
-            {
-                int dive=goalkeeper.divePosition();
-                //implement ball animation after kicking
-                isBallShoot=football.kick(target.getPosition(),newpos);
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+                {
+                    football.whistleSound();
+                    shooter.kick();
+                    holdButtonO = true;
+                }
+                if( holdButtonO)
+                {
+                    int dive=goalkeeper.divePosition();
+                    //implement ball animation after kicking
+                    isBallShoot=football.kick(target.getPosition(),newpos);
 
-                   if(isBallShoot)
+                    if(isBallShoot)
                     {
                         holdButtonO=false;
                         goalkeeper.kick(dive,target.getPosition().x);
@@ -314,26 +312,26 @@ Game::Game()
                         Detection();
                         roleExchange=true;
                     }
-            }
+                }
             }//end of one role
 
             if(roleExchange)
 
-           {
-                target.setSpritePosition(2000,2000);
-                bool x=goalkeeper.handle_input();
-                if(x)
-               {
-                   football.whistleSound();
-                   shooter.kick();
-                   holdButtonO=true;
-               }
-
-            goalkeeper.update();
-            if(holdButtonO)
             {
-                isBallShoot=football.kick(shooter.shootPosition(),newpos);
-                   if(isBallShoot)
+                target.setSpritePosition(2000,2000);
+
+                if(goalkeeper.handle_input())
+                {
+                    football.whistleSound();
+                    shooter.kick();
+                    holdButtonO=true;
+                }
+
+                goalkeeper.update();
+                if(holdButtonO)
+                {
+                    isBallShoot=football.kick(shooter.shootPosition(),newpos);
+                    if(isBallShoot)
                     {
                         holdButtonO=false;
                         timeToRespawn=true;
@@ -341,14 +339,14 @@ Game::Game()
                         Detection();
                         roleExchange=false;
                     }
-            }
-        }//end of next role
-    }
+                }
+            }//end of next role
+        }
 
-    if(state == State::MULTI_PLAYER)
-    {
-        target.handle_input();
-        goalkeeper.handle_input();
+        if(state == State::MULTI_PLAYER)
+        {
+            target.handle_input();
+            goalkeeper.handle_input();
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             {
                 football.whistleSound();
@@ -359,293 +357,294 @@ Game::Game()
             {
                 isBallShoot=football.kick(target.getPosition(),newpos);
 
-                   if(isBallShoot)
+                if(isBallShoot)
+                {
+                    holdButtonO=false;
+                    goalkeeper.update();
+                    timeToRespawn=true;
+                    Detection();
+                    if(!roleExchange)
                     {
-                        holdButtonO=false;
-                        goalkeeper.update();
-                         timeToRespawn=true;
-                         Detection();
-                         if(!roleExchange)
-                         {
-                            shots++;
-                            roleExchange = true;
-                         }
-                         else
-                         {
-                             shots1++;
-                             roleExchange = false;
-                         }
+                        shots++;
+                        roleExchange = true;
                     }
+                    else
+                    {
+                        shots1++;
+                        roleExchange = false;
+                    }
+                }
             }
-            }
+        }
     }
- }
+}
 
- void Game::Detection()
+void Game::Detection()
+{
+    if(Collision::PixelPerfectTest(football.getSprite(),goalkeeper.getSprite()))
     {
-     if(Collision::PixelPerfectTest(football.getSprite(),goalkeeper.getSprite()))
-                        {
-                            hitskeeper = true;
-                            football.missSound();
-                            hitstarget = false;
-                            if(!roleExchange)
-                               saved++;
-                            else
-                                saved1++;
-                        }
-                        else
-                        {
-                            hitskeeper=false;
-                            hitstarget=true;
-                            football.goalSound();
-                            if(!roleExchange)
-                            score++;
-                            else
-                                score1++;
-                            }
- }
+        hitskeeper = true;
+        football.missSound();
+        hitstarget = false;
+        if(!roleExchange)
+            saved++;
+        else
+            saved1++;
+    }
+    else
+    {
+        hitskeeper=false;
+        hitstarget=true;
+        football.goalSound();
+        if(!roleExchange)
+            score++;
+        else
+            score1++;
+    }
+}
 
- void Game::resetScore()
-     {
-         shots=0;
-         score=0;
-         saved=0;
-         shots1=0;
-         score1=0;
-         saved1=0;
-     }
+void Game::resetScore()
+{
+    shots=0;
+    score=0;
+    saved=0;
+    shots1=0;
+    score1=0;
+    saved1=0;
+}
 
- void Game::update()
- {
- if(state ==State::SINGLE_PLAYER || state == State::MULTI_PLAYER)
-   {
-       sf::Time dt=clock.restart();
-       //update total game time
-       gameTimeTotal+=dt;
-       target.update(dt);
-   }
+void Game::update()
+{
+    if(state ==State::SINGLE_PLAYER || state == State::MULTI_PLAYER)
+    {
+        sf::Time dt=clock.restart();
+        //update total game time
+        gameTimeTotal+=dt;
+        target.update(dt);
+    }
 
- }
+}
 
- void Game::render()
- {
-     if(state==State::SINGLE_PLAYER || state == State::MULTI_PLAYER)
+void Game::render()
+{
+    if(state==State::SINGLE_PLAYER || state == State::MULTI_PLAYER)
+    {
+        window.clear();
+        window.draw(hillSprite);
+        window.draw(dboxSemiSprite);
+        window.draw(line);
+        window.draw(line1);
+        window.draw(line2);
+        window.draw(line3);
+        window.draw(line4);
+        window.draw(line5);
+        window.draw(line6);
+        window.draw(ballpos);
+        window.draw(shooter.getSprite());
+        window.draw(goalpost.getSprite());
+        window.draw(goalkeeper.getSprite());
+        window.draw(football.getSprite());
+        window.draw(teamRed);
+        window.draw(teamBlue);
+
+        if(!roleExchange && state == State::SINGLE_PLAYER)
+            window.draw(target.getSprite());
+
+        if(score>0)
+        {
+            int j=20;
+            for(int i=1; i<=score; i++)
+            {
+                scoregoal.setPosition(sf::Vector2f(j,130));
+                window.draw(scoregoal);
+                j=j+35;
+            }
+        }
+        if(saved>0)
+        {
+            int j=20;
+            for(int i=1; i<=saved; i++)
+            {
+                scoremiss.setPosition(sf::Vector2f(j,150));
+                window.draw(scoremiss);
+                j=j+35;
+            }
+        }
+        if(score1>0)
+        {
+            int j=1100;
+            for(int i=1; i<=score1; i++)
+            {
+                scoregoal1.setPosition(sf::Vector2f(j,130));
+                window.draw(scoregoal1);
+                j=j+35;
+            }
+        }
+        if(saved1>0)
+        {
+            int j=1100;
+            for(int i=1; i<=saved1; i++)
+            {
+                scoremiss1.setPosition(sf::Vector2f(j,150));
+                window.draw(scoremiss1);
+                j=j+35;
+            }
+        }
+        if(hitstarget)
+        {
+            window.draw(goalTextSprite);
+        }
+        if(hitskeeper)
+        {
+            window.draw(whataSaveSprite);
+
+        }
+        if(timeForSuddenDeath==1)
         {
             window.clear();
             window.draw(hillSprite);
-            window.draw(dboxSemiSprite);
-            window.draw(line);
-            window.draw(line1);
-            window.draw(line2);
-            window.draw(line3);
-            window.draw(line4);
-            window.draw(line5);
-            window.draw(line6);
-            window.draw(ballpos);
-            window.draw(shooter.getSprite());
-            window.draw(goalpost.getSprite());
-            window.draw(goalkeeper.getSprite());
-            window.draw(football.getSprite());
-            window.draw(teamRed);
-            window.draw(teamBlue);
-
-            if(!roleExchange && state == State::SINGLE_PLAYER)
-                window.draw(target.getSprite());
-
-            if(score>0)
-            {
-                int j=20;
-                for(int i=1;i<=score;i++)
-                {
-                     scoregoal.setPosition(sf::Vector2f(j,130));
-                     window.draw(scoregoal);
-                     j=j+35;
-                }
-            }
-            if(saved>0)
-            {
-                int j=20;
-                for(int i=1;i<=saved;i++)
-                {
-                     scoremiss.setPosition(sf::Vector2f(j,150));
-                     window.draw(scoremiss);
-                     j=j+35;
-                }
-            }
-            if(score1>0)
-            {
-                int j=1100;
-                for(int i=1;i<=score1;i++)
-                {
-                     scoregoal1.setPosition(sf::Vector2f(j,130));
-                     window.draw(scoregoal1);
-                     j=j+35;
-                }
-            }
-            if(saved1>0)
-            {
-                int j=1100;
-                for(int i=1;i<=saved1;i++)
-                {
-                     scoremiss1.setPosition(sf::Vector2f(j,150));
-                     window.draw(scoremiss1);
-                     j=j+35;
-                }
-            }
-             if(hitstarget)
-             {
-                window.draw(goalTextSprite);
-             }
-             if(hitskeeper)
-             {
-                 window.draw(whataSaveSprite);
-
-             }
-             if(timeForSuddenDeath==1)
-             {
-                 window.clear();
-                 window.draw(hillSprite);
-                 window.draw(suddenDeathText);
-                 window.display();
-                 Sleep(3000);
-             }
-             window.display();
-        }
-
-        if(state==State::HOME_PAGE)
-        {
-            menu0.setstring("SINGLE PLAYER");
-            menu0.setpos(500,300);
-            menu1.setstring("MULTI PLAYER");
-            menu1.setpos(500,350);
-            menu2.setstring("HOW TO PLAY");
-            menu2.setpos(500,400);
-            menu3.setstring("ABOUT");
-            menu3.setpos(500,450);
-            menu4.setstring("QUIT");
-            menu4.setpos(500,500);
-
-            if(menu0.checker()==true)
-                menu0.setcolor();
-            else if(menu1.checker()==true)
-                menu1.setcolor();
-            else if(menu2.checker()==true)
-                 menu2.setcolor();
-            else if(menu3.checker()==true)
-                 menu3.setcolor();
-            else if(menu4.checker()==true)
-                 menu4.setcolor();
-            else {
-                    menu0.resetcolor();
-                    menu1.resetcolor();
-                    menu2.resetcolor();
-                    menu3.resetcolor();
-                    menu4.resetcolor();
-                    window.clear();
-                    }
-            window.draw(menu0.getsprite());
-            window.draw(title);
-            window.draw(menu0.gettext());
-            window.draw(menu1.gettext());
-            window.draw(menu2.gettext());
-            window.draw(menu3.gettext());
-            window.draw(menu4.gettext());
+            window.draw(suddenDeathText);
             window.display();
+            Sleep(3000);
         }
-        if(state==State::ABOUT)
-        {
-          window.clear();
-          window.draw(menu0.getsprite());
-          window.draw(rectangle);
-          window.draw(rectangle2);
-          window.draw(aboutgame);
-          window.display();
-        }
-        if(state==State::HOWTOPLAY)
-        {
-          window.clear();
-          window.draw(menu0.getsprite());
-          window.draw(rectangle);
-          window.draw(rectangle2);
-          window.draw(howtoplay);
-          window.display();
-        }
+        window.display();
+    }
 
-        if(state==State::PAUSED)
+    if(state==State::HOME_PAGE)
+    {
+        menu0.setstring("SINGLE PLAYER");
+        menu0.setpos(500,300);
+        menu1.setstring("MULTI PLAYER");
+        menu1.setpos(500,350);
+        menu2.setstring("HOW TO PLAY");
+        menu2.setpos(500,400);
+        menu3.setstring("ABOUT");
+        menu3.setpos(500,450);
+        menu4.setstring("QUIT");
+        menu4.setpos(500,500);
+
+        if(menu0.checker()==true)
+            menu0.setcolor();
+        else if(menu1.checker()==true)
+            menu1.setcolor();
+        else if(menu2.checker()==true)
+            menu2.setcolor();
+        else if(menu3.checker()==true)
+            menu3.setcolor();
+        else if(menu4.checker()==true)
+            menu4.setcolor();
+        else
         {
+            menu0.resetcolor();
+            menu1.resetcolor();
+            menu2.resetcolor();
+            menu3.resetcolor();
+            menu4.resetcolor();
             window.clear();
-            window.draw(hillSprite);
-            window.draw(rectangle);
-            window.draw(rectangle2);
-            window.draw(resume);
-            window.draw(quittomain);
-            window.display();
         }
+        window.draw(menu0.getsprite());
+        window.draw(title);
+        window.draw(menu0.gettext());
+        window.draw(menu1.gettext());
+        window.draw(menu2.gettext());
+        window.draw(menu3.gettext());
+        window.draw(menu4.gettext());
+        window.display();
+    }
+    if(state==State::ABOUT)
+    {
+        window.clear();
+        window.draw(menu0.getsprite());
+        window.draw(rectangle);
+        window.draw(rectangle2);
+        window.draw(aboutgame);
+        window.display();
+    }
+    if(state==State::HOWTOPLAY)
+    {
+        window.clear();
+        window.draw(menu0.getsprite());
+        window.draw(rectangle);
+        window.draw(rectangle2);
+        window.draw(howtoplay);
+        window.display();
+    }
 
-        if(state == State::GAME_OVER)
+    if(state==State::SPAUSED || state== State::MPAUSED)
+    {
+        window.clear();
+        window.draw(hillSprite);
+        window.draw(rectangle);
+        window.draw(rectangle2);
+        window.draw(resume);
+        window.draw(quittomain);
+        window.display();
+    }
+
+    if(state == State::GAME_OVER)
+    {
+        window.clear();
+        sf::Text mgameOver;
+        mgameOver.setFont(gameOverfont);
+        mgameOver.setCharacterSize(100);
+        string s = "Game Over";
+        sf::Vector2f v;
+        v.x = (window.getSize().x)/3.5;
+        v.y = (window.getSize().y)/4;
+        mgameOver.setPosition(sf::Vector2f(v));
+
+        sf::RectangleShape rect;
+        rect.setFillColor(sf::Color(0,0,0,30));
+        rect.setSize(sf::Vector2f(window.getSize()));
+        window.draw(hillSprite);
+
+        mgameOver.setString(s);
+        mgameOver.setFillColor(sf::Color::Black);
+        window.draw(rect);
+        window.draw(mgameOver);
+
+        sf::Text winnerTextDisplay;
+        sf::Text scoreDisplay;
+        sf::Text score1Display;
+        scoreDisplay.setFont(gameOverfont);
+        winnerTextDisplay.setFont(gameOverfont);
+        score1Display.setFont(gameOverfont);
+        scoreDisplay.setFillColor(sf::Color(245,20,20));
+        score1Display.setFillColor(sf::Color(0,50, 245));
+
+        std::stringstream mScore;
+        std::stringstream winnerText;
+        std::stringstream mScore1;
+
+        mScore<<"  Team Red : "<<score;
+        mScore1<<"  Team Blue: "<<score1;
+        winnerTextDisplay.setFillColor(sf::Color::Black);
+
+        if(score>score1)
         {
-            window.clear();
-            sf::Text mgameOver;
-            mgameOver.setFont(gameOverfont);
-            mgameOver.setCharacterSize(100);
-            string s = "Game Over";
-            sf::Vector2f v;
-            v.x = (window.getSize().x)/3.5;
-            v.y = (window.getSize().y)/4;
-            mgameOver.setPosition(sf::Vector2f(v));
+            winnerText<<"Congratulations, Team Red";
+            winnerTextDisplay.setPosition(sf::Vector2f(window.getSize().x/6,window.getSize().y/1.3));
+        }
+        else if(score < score1)
+        {
+            winnerText<<"Congratulations, Team Blue";
+            winnerTextDisplay.setPosition(sf::Vector2f(window.getSize().x/6,window.getSize().y/1.3));
+        }
+        scoreDisplay.setCharacterSize(60);
+        scoreDisplay.setPosition(sf::Vector2f(window.getSize().x/3,window.getSize().y/2.1));
+        scoreDisplay.setString(mScore.str());
+        score1Display.setCharacterSize(60);
+        score1Display.setPosition(sf::Vector2f(window.getSize().x/3,window.getSize().y/1.7));
+        score1Display.setString(mScore1.str());
+        winnerTextDisplay.setCharacterSize(70);
+        winnerTextDisplay.setString(winnerText.str());
 
-            sf::RectangleShape rect;
-            rect.setFillColor(sf::Color(0,0,0,30));
-            rect.setSize(sf::Vector2f(window.getSize()));
-            window.draw(hillSprite);
-
-            mgameOver.setString(s);
-            mgameOver.setFillColor(sf::Color::Black);
-            window.draw(rect);
-            window.draw(mgameOver);
-
-            sf::Text winnerTextDisplay;
-            sf::Text scoreDisplay;
-            sf::Text score1Display;
-            scoreDisplay.setFont(gameOverfont);
-            winnerTextDisplay.setFont(gameOverfont);
-            score1Display.setFont(gameOverfont);
-            scoreDisplay.setFillColor(sf::Color(245,20,20));
-            score1Display.setFillColor(sf::Color(0,50, 245));
-
-            std::stringstream mScore;
-            std::stringstream winnerText;
-            std::stringstream mScore1;
-
-            mScore<<"  Team Red : "<<score;
-            mScore1<<"  Team Blue: "<<score1;
-            winnerTextDisplay.setFillColor(sf::Color::Black);
-
-            if(score>score1)
-            {
-                winnerText<<"Congratulations, Team Red";
-                winnerTextDisplay.setPosition(sf::Vector2f(window.getSize().x/6,window.getSize().y/1.3));
-            }
-            else if(score < score1)
-            {
-                winnerText<<"Congratulations, Team Blue";
-                winnerTextDisplay.setPosition(sf::Vector2f(window.getSize().x/6,window.getSize().y/1.3));
-            }
-            scoreDisplay.setCharacterSize(60);
-            scoreDisplay.setPosition(sf::Vector2f(window.getSize().x/3,window.getSize().y/2.1));
-            scoreDisplay.setString(mScore.str());
-            score1Display.setCharacterSize(60);
-            score1Display.setPosition(sf::Vector2f(window.getSize().x/3,window.getSize().y/1.7));
-            score1Display.setString(mScore1.str());
-            winnerTextDisplay.setCharacterSize(70);
-            winnerTextDisplay.setString(winnerText.str());
-
-            window.draw(score1Display);
-            window.draw(scoreDisplay);
-            window.draw(winnerTextDisplay);
-            window.display();
-            Sleep(6000);
-            resetScore();
-            state= State::HOME_PAGE;
- }
- }
+        window.draw(score1Display);
+        window.draw(scoreDisplay);
+        window.draw(winnerTextDisplay);
+        window.display();
+        Sleep(6000);
+        resetScore();
+        state= State::HOME_PAGE;
+    }
+}

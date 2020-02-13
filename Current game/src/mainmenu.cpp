@@ -1,9 +1,9 @@
 #include "mainmenu.h"
 mainmenu::mainmenu()
 {
-    m_texture.loadFromFile("background.png");
+    m_texture.loadFromFile("Resources/Images/background.png");
     m_sprite.setTexture(m_texture);
-    m_font.loadFromFile("mymenu.ttf");
+    m_font.loadFromFile("Resources/Fonts/mymenu.ttf");
 
     m_textstart.setFont(m_font);
     m_textstart.setCharacterSize(50);
@@ -38,13 +38,13 @@ bool mainmenu::checker()
 {
     sf::Vector2i globalposition=sf::Mouse::getPosition();
     if(m_textstart.getGlobalBounds().contains(globalposition.x,globalposition.y))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 void mainmenu::setpos(float x,float y)
 {
