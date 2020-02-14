@@ -3,7 +3,6 @@ using std::string;
 Game::Game()
     :window(sf::VideoMode(sf::VideoMode::getDesktopMode().width,sf::VideoMode::getDesktopMode().height), "Penalty Fever",sf::Style::Fullscreen)
 {
-
     music.openFromFile("Resources/Music/cl.wav");
     music.play();
     //start with home page state
@@ -12,7 +11,6 @@ Game::Game()
     newpos.x=700;
     newpos.y=580;
     //font and texts
-    gameOverfont.loadFromFile("Resources/Fonts/LobsterTwo-Bold.otf");
     font.loadFromFile("Resources/Fonts/Quicksand-Regular.otf");
     titlefont.loadFromFile("Resources/Fonts/mymenu.ttf");
     suddenDeathText.setFont(gameOverfont);
@@ -77,23 +75,6 @@ Game::Game()
     whataSaveSprite.setTexture(whataSaveTexture);
     whataSaveSprite.setPosition(380,300);
 
-    //score sprites
-    scoregoaltexture.loadFromFile("Resources/Images/scoregoal.png");
-    scoregoal.setTexture(scoregoaltexture);
-    scoregoal1.setTexture(scoregoaltexture);
-
-    scoregoal.setScale(0.03f,0.03f);
-    scoregoal1.setScale(0.03f,0.03f);
-
-
-    scoremisstexture.loadFromFile("Resources/Images/scoremiss.png");
-    scoremiss.setTexture(scoremisstexture);
-    scoremiss1.setTexture(scoremisstexture);
-
-    scoremiss.setScale(0.05f,0.05f);
-    scoremiss1.setScale(0.05f,0.05f);
-
-
     close1.loadFromFile("Resources/Images/closeit.png");
 
     //about
@@ -105,9 +86,6 @@ Game::Game()
     rectangle2.setSize(sf::Vector2f(20,20));
     rectangle2.setPosition(1000,180);
     rectangle2.setTexture(&close1);
-
-
-
 }
 
 void Game::run()
@@ -416,46 +394,7 @@ void Game::render()
         if(!roleExchange && state == State::SINGLE_PLAYER)
             window.draw(target.getSprite());
 
-        if(score>0)
-        {
-            int j=20;
-            for(int i=1; i<=score; i++)
-            {
-                scoregoal.setPosition(sf::Vector2f(j,130));
-                window.draw(scoregoal);
-                j=j+35;
-            }
-        }
-        if(saved>0)
-        {
-            int j=20;
-            for(int i=1; i<=saved; i++)
-            {
-                scoremiss.setPosition(sf::Vector2f(j,150));
-                window.draw(scoremiss);
-                j=j+35;
-            }
-        }
-        if(score1>0)
-        {
-            int j=1100;
-            for(int i=1; i<=score1; i++)
-            {
-                scoregoal1.setPosition(sf::Vector2f(j,130));
-                window.draw(scoregoal1);
-                j=j+35;
-            }
-        }
-        if(saved1>0)
-        {
-            int j=1100;
-            for(int i=1; i<=saved1; i++)
-            {
-                scoremiss1.setPosition(sf::Vector2f(j,150));
-                window.draw(scoremiss1);
-                j=j+35;
-            }
-        }
+        football.draw(window,score,score1,saved,saved1);
         if(hitstarget)
         {
             window.draw(goalTextSprite);
@@ -463,7 +402,6 @@ void Game::render()
         if(hitskeeper)
         {
             window.draw(whataSaveSprite);
-
         }
         if(timeForSuddenDeath==1)
         {
@@ -550,65 +488,8 @@ void Game::render()
     if(state == State::GAME_OVER)
     {
         window.clear();
-        sf::Text mgameOver;
-        mgameOver.setFont(gameOverfont);
-        mgameOver.setCharacterSize(100);
-        string s = "Game Over";
-        sf::Vector2f v;
-        v.x = (window.getSize().x)/3.5;
-        v.y = (window.getSize().y)/4;
-        mgameOver.setPosition(sf::Vector2f(v));
-
-        sf::RectangleShape rect;
-        rect.setFillColor(sf::Color(0,0,0,30));
-        rect.setSize(sf::Vector2f(window.getSize()));
         window.draw(hillSprite);
-
-        mgameOver.setString(s);
-        mgameOver.setFillColor(sf::Color::Black);
-        window.draw(rect);
-        window.draw(mgameOver);
-
-        sf::Text winnerTextDisplay;
-        sf::Text scoreDisplay;
-        sf::Text score1Display;
-        scoreDisplay.setFont(gameOverfont);
-        winnerTextDisplay.setFont(gameOverfont);
-        score1Display.setFont(gameOverfont);
-        scoreDisplay.setFillColor(sf::Color(245,20,20));
-        score1Display.setFillColor(sf::Color(0,50, 245));
-
-        std::stringstream mScore;
-        std::stringstream winnerText;
-        std::stringstream mScore1;
-
-        mScore<<"  Team Red : "<<score;
-        mScore1<<"  Team Blue: "<<score1;
-        winnerTextDisplay.setFillColor(sf::Color::Black);
-
-        if(score>score1)
-        {
-            winnerText<<"Congratulations, Team Red";
-            winnerTextDisplay.setPosition(sf::Vector2f(window.getSize().x/6,window.getSize().y/1.3));
-        }
-        else if(score < score1)
-        {
-            winnerText<<"Congratulations, Team Blue";
-            winnerTextDisplay.setPosition(sf::Vector2f(window.getSize().x/6,window.getSize().y/1.3));
-        }
-        scoreDisplay.setCharacterSize(60);
-        scoreDisplay.setPosition(sf::Vector2f(window.getSize().x/3,window.getSize().y/2.1));
-        scoreDisplay.setString(mScore.str());
-        score1Display.setCharacterSize(60);
-        score1Display.setPosition(sf::Vector2f(window.getSize().x/3,window.getSize().y/1.7));
-        score1Display.setString(mScore1.str());
-        winnerTextDisplay.setCharacterSize(70);
-        winnerTextDisplay.setString(winnerText.str());
-
-        window.draw(score1Display);
-        window.draw(scoreDisplay);
-        window.draw(winnerTextDisplay);
-        window.display();
+        main_menu.drawGameOver(window,score,score1);
         Sleep(6000);
         resetScore();
         state= State::HOME_PAGE;

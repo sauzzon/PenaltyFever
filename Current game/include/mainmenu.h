@@ -3,6 +3,7 @@
 #include<SFML/Graphics.hpp>
 #include "windows.h"
 #include<string.h>
+#include<sstream>
 class mainmenu
 {
 public:
@@ -15,6 +16,8 @@ public:
     bool checker();
     void setstring(std::string);
     void setpos(float,float);
+
+    void drawGameOver(sf::RenderWindow &window,int,int);
 private:
     sf::Texture m_texture;
     sf::Sprite m_sprite;
@@ -23,6 +26,8 @@ private:
     sf::Text m_textabout;
     sf::Text m_texthow;
     sf::Text m_textquit;
+
+     sf::Font gameOverfont;
 
 };
 

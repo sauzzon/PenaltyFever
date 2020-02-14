@@ -45,15 +45,6 @@ private:
     sf::Texture hillTexture;
     sf::Sprite hillSprite;
 
-
-    sf::Sprite scoregoal;
-    sf::Sprite scoregoal1;
-    sf::Texture scoregoaltexture;
-    sf::Sprite scoremiss;
-    sf::Sprite scoremiss1;
-    sf::Texture scoremisstexture;
-
-
     sf::Texture goalTextTexture;
     sf::Sprite goalTextSprite;
     sf::Sprite goalTextSprite1;
@@ -91,6 +82,7 @@ private:
     Goalkeeper goalkeeper;
     Target target;
     mainmenu menu0,menu1,menu2,menu3,menu4;
+    mainmenu main_menu;
 
     //parameters of the game
     sf::Vector2f newpos;
