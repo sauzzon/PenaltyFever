@@ -93,28 +93,6 @@ Game::Game()
     scoremiss.setScale(0.05f,0.05f);
     scoremiss1.setScale(0.05f,0.05f);
 
-    //dbox line
-    line.setSize(sf::Vector2f(window.getSize().x,3));
-    line.setPosition(sf::Vector2f(0,290));
-    line.setFillColor(sf::Color::White);
-    line1.setSize(sf::Vector2f(183,3));
-    line1.setRotation(90);
-    line1.setPosition(sf::Vector2f(400,290));
-    line2.setSize(sf::Vector2f(640,3));
-    line2.setPosition(sf::Vector2f(400,470));
-    line2.setFillColor(sf::Color::White);
-    line3.setSize(sf::Vector2f(180,3));
-    line3.setRotation(90);
-    line3.setPosition(sf::Vector2f(1040,290));
-    line4.setSize(sf::Vector2f(433,3));
-    line4.setRotation(90);
-    line4.setPosition(sf::Vector2f(170,290));
-    line5.setSize(sf::Vector2f(430,3));
-    line5.setRotation(90);
-    line5.setPosition(sf::Vector2f(1270,290));
-    line6.setSize(sf::Vector2f(1100,3));
-    line6.setPosition(sf::Vector2f(170,720));
-    line6.setFillColor(sf::Color::White);
 
     close1.loadFromFile("Resources/Images/closeit.png");
 
@@ -127,15 +105,9 @@ Game::Game()
     rectangle2.setSize(sf::Vector2f(20,20));
     rectangle2.setPosition(1000,180);
     rectangle2.setTexture(&close1);
-    //
-    dboxSemiTexture.loadFromFile("Resources/Images/dbox.png");
-    dboxSemiSprite.setTexture(dboxSemiTexture);
-    dboxSemiSprite.setPosition(sf::Vector2f(580,720));
-    dboxSemiSprite.setScale(2.0f,2.0f);
 
-    ballpos.setRadius(6.0f);
-    ballpos.setFillColor(sf::Color::White);
-    ballpos.setPosition(717,590);
+
+
 }
 
 void Game::run()
@@ -190,6 +162,7 @@ void Game::processEvents()
             timeToRespawn=true;
             roleExchange=false;
             state=State::HOME_PAGE;
+            fromHome = true;
         }
         //start new game
         if(event.key.code==sf::Mouse::Left && state==State::HOME_PAGE && menu0.checker()==true)
@@ -258,7 +231,9 @@ void Game::processEvents()
 
         if(timeToRespawn)
         {
-            Sleep(2500);
+            if(!fromHome)
+                Sleep(2500);
+            fromHome = false;
             newpos.x=700;
             newpos.y=580;
 
@@ -431,19 +406,10 @@ void Game::render()
     {
         window.clear();
         window.draw(hillSprite);
-        window.draw(dboxSemiSprite);
-        window.draw(line);
-        window.draw(line1);
-        window.draw(line2);
-        window.draw(line3);
-        window.draw(line4);
-        window.draw(line5);
-        window.draw(line6);
-        window.draw(ballpos);
+        goalpost.draw(window);
         window.draw(shooter.getSprite());
-        window.draw(goalpost.getSprite());
         window.draw(goalkeeper.getSprite());
-        window.draw(football.getSprite());
+        football.draw(window);
         window.draw(teamRed);
         window.draw(teamBlue);
 
