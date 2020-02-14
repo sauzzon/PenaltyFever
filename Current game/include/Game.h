@@ -44,8 +44,7 @@ private:
     sf::Music music;
     sf::Texture hillTexture;
     sf::Sprite hillSprite;
-    sf::Texture dboxSemiTexture;
-    sf::Sprite dboxSemiSprite;
+
 
     sf::Sprite scoregoal;
     sf::Sprite scoregoal1;
@@ -65,9 +64,9 @@ private:
 
     sf::Texture close1;
 
-    sf::RectangleShape line,line1,line2,line3,line4,line5,line6,rectangle2,rectangle;
+    sf::RectangleShape rectangle2,rectangle;
 
-    sf::CircleShape ballpos;
+
 
     // The game will always be in one of four states
     enum class State
@@ -107,6 +106,7 @@ private:
     bool tooglePlayer=false;
     bool suddenDeath=false;
     int timeForSuddenDeath=0;
+    bool fromHome = false;
 
 
 

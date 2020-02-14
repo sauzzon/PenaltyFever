@@ -7,6 +7,10 @@ Football::Football()
     m_sprite.setTexture(m_texture);
     m_sprite.setPosition(700,580);
 
+    ballpos.setRadius(6.0f);
+    ballpos.setFillColor(sf::Color::White);
+    ballpos.setPosition(717,590);
+
     goalbuffer.loadFromFile("Resources/Music/goalmusic.wav");
     missbuffer.loadFromFile("Resources/Music/misssound.wav");
     whistlebuffer.loadFromFile("Resources/Music/whistle.wav");
@@ -84,4 +88,10 @@ void Football::whistleSound()
 void Football::spawn()
 {
     m_sprite.setPosition(700,580);
+}
+
+void Football::draw(sf::RenderWindow &window)
+{
+    window.draw(ballpos);
+    window.draw(m_sprite);
 }

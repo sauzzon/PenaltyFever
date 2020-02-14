@@ -18,6 +18,7 @@ public:
     void goalSound();
     void missSound();
     void whistleSound();
+    void draw(sf::RenderWindow &window);
 
 
 protected:
@@ -31,6 +32,7 @@ private:
     sf::Sound msound;
     sf::SoundBuffer whistlebuffer;
     sf::Sound wsound;
+    sf::CircleShape ballpos;
 };
 
 #endif // FOOTBALL_H
