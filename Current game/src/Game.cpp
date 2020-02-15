@@ -7,13 +7,13 @@ Game::Game()
     music.play();
     //start with home page state
     state = State::HOME_PAGE;
-    //initialize temporary position to initial position
     newpos.x=700;
     newpos.y=580;
+
     //font and texts
     font.loadFromFile("Resources/Fonts/Quicksand-Regular.otf");
     titlefont.loadFromFile("Resources/Fonts/mymenu.ttf");
-    suddenDeathText.setFont(gameOverfont);
+    suddenDeathText.setFont(titlefont);
     resume.setFont(font);
     quittomain.setFont(font);
     aboutgame.setFont(font);
@@ -41,9 +41,7 @@ Game::Game()
     teamBlue.setPosition(1100,90);
     suddenDeathText.setPosition(window.getSize().x/8, window.getSize().y/2);
 
-    goalText.setCharacterSize(90);
-    whataSaveText.setCharacterSize(80);
-    suddenDeathText.setCharacterSize(80);
+    suddenDeathText.setCharacterSize(60);
     teamRed.setCharacterSize(35);
     teamBlue.setCharacterSize(35);
     resume.setCharacterSize(50);
@@ -73,7 +71,8 @@ Game::Game()
     //what a save text
     whataSaveTexture.loadFromFile("Resources/Images/whataSave.png");
     whataSaveSprite.setTexture(whataSaveTexture);
-    whataSaveSprite.setPosition(380,300);
+    whataSaveSprite.setPosition(500,350);
+    whataSaveSprite.setScale(0.6,0.6);
 
     close1.loadFromFile("Resources/Images/closeit.png");
 
@@ -86,6 +85,19 @@ Game::Game()
     rectangle2.setSize(sf::Vector2f(20,20));
     rectangle2.setPosition(1000,180);
     rectangle2.setTexture(&close1);
+
+    //homepage
+    menu0.setstring("SINGLE PLAYER");
+    menu0.setpos(500,300);
+    menu1.setstring("MULTI PLAYER");
+    menu1.setpos(500,350);
+    menu2.setstring("HOW TO PLAY");
+    menu2.setpos(500,400);
+    menu3.setstring("ABOUT");
+    menu3.setpos(500,450);
+    menu4.setstring("QUIT");
+    menu4.setpos(500,500);
+
 }
 
 void Game::run()
@@ -391,18 +403,15 @@ void Game::render()
         window.draw(teamRed);
         window.draw(teamBlue);
 
+
         if(!roleExchange && state == State::SINGLE_PLAYER)
             window.draw(target.getSprite());
 
         football.draw(window,score,score1,saved,saved1);
         if(hitstarget)
-        {
             window.draw(goalTextSprite);
-        }
         if(hitskeeper)
-        {
             window.draw(whataSaveSprite);
-        }
         if(timeForSuddenDeath==1)
         {
             window.clear();
@@ -416,17 +425,6 @@ void Game::render()
 
     if(state==State::HOME_PAGE)
     {
-        menu0.setstring("SINGLE PLAYER");
-        menu0.setpos(500,300);
-        menu1.setstring("MULTI PLAYER");
-        menu1.setpos(500,350);
-        menu2.setstring("HOW TO PLAY");
-        menu2.setpos(500,400);
-        menu3.setstring("ABOUT");
-        menu3.setpos(500,450);
-        menu4.setstring("QUIT");
-        menu4.setpos(500,500);
-
         if(menu0.checker()==true)
             menu0.setcolor();
         else if(menu1.checker()==true)

@@ -14,7 +14,6 @@ public:
     void kick(int,float);
     void spawn();
     sf::Vector2f getPosition();
-    void goalSound();
     int divePosition();
     void setToBlue();
     void setToRed();

@@ -33,8 +33,6 @@ private:
     void update();
     void render();
     void Detection();
-    void toogle();
-
 
 
 private:
@@ -47,11 +45,9 @@ private:
 
     sf::Texture goalTextTexture;
     sf::Sprite goalTextSprite;
-    sf::Sprite goalTextSprite1;
 
     sf::Texture whataSaveTexture;
     sf::Sprite whataSaveSprite;
-    sf::Sprite whataSaveSprite1;
 
     sf::Texture close1;
 
@@ -62,7 +58,7 @@ private:
     // The game will always be in one of four states
     enum class State
     {
-        HOME_PAGE, SPAUSED, MPAUSED, GAME_OVER,SINGLE_PLAYER,MULTI_PLAYER,ABOUT,HOWTOPLAY, PLAYER_INPUT, NEWGAME
+        HOME_PAGE, SPAUSED, MPAUSED, GAME_OVER,SINGLE_PLAYER,MULTI_PLAYER,ABOUT,HOWTOPLAY
     };
 
     State state;
@@ -92,9 +88,7 @@ private:
     bool hitskeeper = false;
     bool timeToRespawn=false;
     bool isBallShoot=false;
-
     bool roleExchange=false;
-
     bool tooglePlayer=false;
     bool suddenDeath=false;
     int timeForSuddenDeath=0;
@@ -117,9 +111,6 @@ private:
     //font
     sf::Font font;
     sf::Font titlefont;
-    sf::Font gameOverfont;
-    sf::Text goalText;
-    sf::Text whataSaveText;
     sf::Text resume;
     sf::Text quittomain;
     sf::Text howtoplay;
@@ -127,16 +118,7 @@ private:
     sf::Text title;
     sf::Text teamRed;
     sf::Text teamBlue;
-
-
     sf::Text suddenDeathText;
-
-    sf::String playerInput;
-    sf::Text playerText;
-
-
-
-
 
 };
 

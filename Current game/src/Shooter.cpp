@@ -52,7 +52,7 @@ sf::Vector2f Shooter::shootPosition()
     sf::Vector2f randPosition;
     srand(unsigned(time(0)));
 
-    randPosition.x= rand()%(890-550) + 550;
+    randPosition.x= rand()%(885-550) + 550;
     randPosition.y= rand()%(250-120) + 120;
 
     return randPosition;

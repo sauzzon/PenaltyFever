@@ -37,10 +37,12 @@ void Target::handle_input()
     else
         stopLeft();
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&& getPosition().x <890)
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&& getPosition().x <885)
         moveRight();
     else
         stopRight();
+
+        checkPosition();
 
 }
 
@@ -92,6 +94,11 @@ void Target::update(sf::Time dt)
     m_sprite.move(movement*dt.asSeconds());
 
 }
+void Target::checkPosition()
+{
+    if(getPosition().x>886 || getPosition().x<549 || getPosition().y>251 || getPosition().y<119)
+     m_sprite.setPosition(720,185);
+}
 
 sf::Vector2f Target::getPosition()
 {
@@ -110,3 +117,4 @@ void Target::setSpritePosition(sf::Vector2f shootpos)
 {
     m_sprite.setPosition(shootpos);
 }
+

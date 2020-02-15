@@ -25,12 +25,10 @@ public:
     void setSpritePosition(sf::Vector2f);
 
 
-
-
-
     sf::Vector2f getPosition();
 
     void update(sf::Time);
+    void checkPosition();
 
 protected:
 
