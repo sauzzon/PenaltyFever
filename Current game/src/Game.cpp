@@ -394,6 +394,7 @@ void Game::render()
 {
     if(state==State::SINGLE_PLAYER || state == State::MULTI_PLAYER)
     {
+        window.setMouseCursorVisible(false);
         window.clear();
         window.draw(hillSprite);
         goalpost.draw(window);
@@ -425,6 +426,7 @@ void Game::render()
 
     if(state==State::HOME_PAGE)
     {
+        window.setMouseCursorVisible(true);
         if(menu0.checker()==true)
             menu0.setcolor();
         else if(menu1.checker()==true)
@@ -455,6 +457,7 @@ void Game::render()
     }
     if(state==State::ABOUT)
     {
+        window.setMouseCursorVisible(true);
         window.clear();
         window.draw(menu0.getsprite());
         window.draw(rectangle);
@@ -464,6 +467,7 @@ void Game::render()
     }
     if(state==State::HOWTOPLAY)
     {
+        window.setMouseCursorVisible(true);
         window.clear();
         window.draw(menu0.getsprite());
         window.draw(rectangle);
@@ -474,6 +478,7 @@ void Game::render()
 
     if(state==State::SPAUSED || state== State::MPAUSED)
     {
+        window.setMouseCursorVisible(true);
         window.clear();
         window.draw(hillSprite);
         window.draw(rectangle);
@@ -485,10 +490,12 @@ void Game::render()
 
     if(state == State::GAME_OVER)
     {
+        window.setMouseCursorVisible(false);
         window.clear();
         window.draw(hillSprite);
         main_menu.drawGameOver(window,score,score1);
         Sleep(6000);
+
         resetScore();
         state= State::HOME_PAGE;
     }
