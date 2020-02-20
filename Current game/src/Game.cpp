@@ -3,7 +3,7 @@ using std::string;
 Game::Game()
     :window(sf::VideoMode(sf::VideoMode::getDesktopMode().width,sf::VideoMode::getDesktopMode().height), "Penalty Fever",sf::Style::Fullscreen)
 {
-    music.openFromFile("Resources/Music/cl.wav");
+    music.openFromFile("Resources/Music/wavinflag.wav");
     music.play();
     //start with home page state
     state = State::HOME_PAGE;
