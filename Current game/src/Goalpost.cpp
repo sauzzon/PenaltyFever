@@ -45,6 +45,8 @@ sf::Sprite Goalpost::getSprite()
 {
     return m_sprite;
 }
+
+//drawing lines,goalpost and dbox
 void Goalpost::draw(sf::RenderWindow &window)
 {
 

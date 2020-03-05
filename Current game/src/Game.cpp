@@ -7,7 +7,7 @@ Game::Game()
     music.play();
     //start with home page state
     state = State::HOME_PAGE;
-    newpos.x=700;
+    newpos.x=700;      //initial position for the football
     newpos.y=580;
 
     //font and texts
@@ -195,7 +195,7 @@ void Game::processEvents()
     //handle input while playing
     if(state == State::SINGLE_PLAYER || state == State::MULTI_PLAYER)
     {
-        if(suddenDeath)
+        if(suddenDeath)   //in sudden death mode if scores are different after equal shoots, game is over
         {
             if(shots==shots1)
             {
@@ -208,8 +208,8 @@ void Game::processEvents()
             }
         }
 
-        if((shots1==5)&&(shots==5))
-        {
+        if((shots1==5)&&(shots==5))   //after 5 shots game is over if scores are different
+        {                             //if scores are same,game enters sudden death mode
             if(score1!=score)
                 state=State::GAME_OVER;
             else
@@ -219,7 +219,7 @@ void Game::processEvents()
             }
         }
 
-        if(timeToRespawn)
+        if(timeToRespawn)              //setting everything to initial position for next shoot
         {
             if(!fromHome)
                 Sleep(2500);
@@ -234,7 +234,7 @@ void Game::processEvents()
             hitstarget = false;
             hitskeeper=false;
 
-            if(!tooglePlayer)
+            if(!tooglePlayer)                //changing players color after a shot is taken
             {
                 goalkeeper.setToRed();
                 shooter.setToBlue();
@@ -254,17 +254,17 @@ void Game::processEvents()
         {
             if(!roleExchange)
             {
-                target.handle_input();
+                target.handle_input();                              //moving target with arrow keys
 
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))   //space button shoots the ball
                 {
                     football.whistleSound();
-                    shooter.kick();
+                    shooter.kick();                                   //animating shooter
                     holdButtonO = true;
                 }
                 if( holdButtonO)
                 {
-                    int dive=goalkeeper.divePosition();
+                    int dive=goalkeeper.divePosition();                //goalkeeper dive position generation
                     //implement ball animation after kicking
                     isBallShoot=football.kick(target.getPosition(),newpos);
 
@@ -274,7 +274,7 @@ void Game::processEvents()
                         goalkeeper.kick(dive,target.getPosition().x);
                         timeToRespawn=true;
                         shots++;
-                        Detection();
+                        Detection();                   //checking collision between ball and goalkeeper
                         roleExchange=true;
                     }
                 }
@@ -283,7 +283,7 @@ void Game::processEvents()
             if(roleExchange)
 
             {
-                target.setSpritePosition(2000,2000);
+                target.setSpritePosition(2000,2000);    //invisible target while cpu is shooting
 
                 if(goalkeeper.handle_input())
                 {
@@ -344,6 +344,7 @@ void Game::processEvents()
     }
 }
 
+//collision detection between goalkeeper and football
 void Game::Detection()
 {
     if(Collision::PixelPerfectTest(football.getSprite(),goalkeeper.getSprite()))
@@ -368,6 +369,7 @@ void Game::Detection()
     }
 }
 
+//reseting each score to zero for next game
 void Game::resetScore()
 {
     shots=0;

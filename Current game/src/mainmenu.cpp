@@ -55,6 +55,8 @@ void mainmenu::setpos(float x,float y)
 {
     m_textstart.setPosition(x,y);
 }
+
+//drawing the gameover window
 void mainmenu::drawGameOver(sf::RenderWindow &window,int score,int score1)
 {
 

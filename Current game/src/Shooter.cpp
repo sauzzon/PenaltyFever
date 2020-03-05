@@ -13,6 +13,8 @@ Shooter::Shooter()
 
 
 }
+
+//changing color after each shot
 void Shooter::setToRed()
 {
     m_sprite.setTexture(m_texture);
@@ -23,7 +25,7 @@ void Shooter::setToBlue()
 
 }
 
-
+//changing the shooters leg position for shoot
 void Shooter::kick()
 {
 
@@ -32,6 +34,7 @@ void Shooter::kick()
 
 }
 
+//shooter in its initial position after shooting
 void Shooter::spawn()
 {
     m_sprite.setTextureRect(sf::IntRect(0,0,150,297));
@@ -46,6 +49,9 @@ Shooter::~Shooter()
 {
     //dtor
 }
+
+
+//generating the position for the shooter ro shoot ball by CPU
 sf::Vector2f Shooter::shootPosition()
 {
     //generate random position

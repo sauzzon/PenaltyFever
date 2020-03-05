@@ -48,6 +48,8 @@ sf::Vector2f Football::getPosition()
     return m_sprite.getPosition();
 }
 
+//moving the ball to specific position of the target
+
 bool Football::kick(sf::Vector2f targetPosition,sf::Vector2f &newpos)
 {
 
@@ -83,7 +85,7 @@ bool Football::kick(sf::Vector2f targetPosition,sf::Vector2f &newpos)
 
 
 }
-
+//playing different sounds
 void Football::goalSound()
 {
 
@@ -98,16 +100,22 @@ void Football::whistleSound()
     wsound.play();
     Sleep(750);
 }
+
+//football to its initial position
 void Football::spawn()
 {
     m_sprite.setPosition(700,580);
 }
+
+//drawing
 
 void Football::draw(sf::RenderWindow &window)
 {
     window.draw(ballpos);
     window.draw(m_sprite);
 }
+
+//for scoring using ball and cross mark
 void Football::draw(sf::RenderWindow &window,int score,int score1,int saved,int saved1)
 {
 if(score>0)

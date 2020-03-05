@@ -17,6 +17,10 @@ sf::Sprite Target::getSprite()
     return m_sprite;
 }
 
+
+//pressing arrow keys for moving target
+//target can't be moved beyond goalpost teritorry
+
 void Target::handle_input()
 {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && getPosition().y>120 )
@@ -79,6 +83,8 @@ void Target::stopRight()
     rightPressed=false;
 }
 
+//moving the target every frame
+
 void Target::update(sf::Time dt)
 {
     sf::Vector2f movement(0.f, 0.f);
@@ -94,6 +100,8 @@ void Target::update(sf::Time dt)
     m_sprite.move(movement*dt.asSeconds());
 
 }
+
+//checking if the target is out of the goalpost
 void Target::checkPosition()
 {
     if(getPosition().x>886 || getPosition().x<549 || getPosition().y>251 || getPosition().y<119)
@@ -105,10 +113,13 @@ sf::Vector2f Target::getPosition()
     return m_sprite.getPosition();
 }
 
+//putting target in its initial position for next shoot
 void Target::spawn()
 {
     m_sprite.setPosition(720,185);
 }
+
+//setting target to a position
 void Target::setSpritePosition(int x,int y)
 {
     m_sprite.setPosition(x,y);

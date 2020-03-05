@@ -15,6 +15,8 @@ Goalkeeper::~Goalkeeper()
 {
     //dtor
 }
+
+//changing color after each shot
 void Goalkeeper::setToRed()
 {
     m_sprite.setTexture(m1_texture);
@@ -23,11 +25,13 @@ void Goalkeeper::setToBlue()
 {
     m_sprite.setTexture(m_texture);
 }
+
 sf::Sprite Goalkeeper::getSprite()
 {
     return m_sprite;
 }
 
+//generating dive position for singleplayer mode
 int Goalkeeper::divePosition()
 {
     srand((unsigned) time(0));
@@ -35,6 +39,7 @@ int Goalkeeper::divePosition()
     return rnum;
 }
 
+//for entering the keys for diving
 bool Goalkeeper::handle_input()
 {
     diveKeyPressed=false;
@@ -158,6 +163,8 @@ bool Goalkeeper::handle_input()
 
 }
 
+//goalkeeper diving in specific position according to the target position.
+//goalkeeper is able to judge the side where the ball is shot
 void Goalkeeper::kick(int n,float pos)
 {
     if (pos>775)
@@ -268,6 +275,7 @@ void Goalkeeper::kick(int n,float pos)
 
 }
 
+//moving keeper to initial position
 void Goalkeeper::spawn()
 {
     m_sprite.setTextureRect(sf::IntRect(0,0,120,150));
@@ -275,7 +283,7 @@ void Goalkeeper::spawn()
 }
 
 
-
+//dive in different positions
 void Goalkeeper::update()
 {
     if(is0pressed)
@@ -333,7 +341,7 @@ void Goalkeeper::update()
     }
 
 }
-
+//reseting all the positions of keeper
 void Goalkeeper::resetPosition()
 {
     is0pressed=false;
