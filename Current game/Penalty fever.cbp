@@ -14,7 +14,6 @@
 				<Compiler>
 					<Add option="-std=c++14" />
 					<Add option="-g" />
-					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-static-libgcc" />
@@ -29,7 +28,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
-					<Add directory="D:/penalty/PenaltyFever/Current game/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
